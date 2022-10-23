@@ -25,7 +25,9 @@ function Connect-Portainer
     [CmdletBinding()] # Enabled advanced function support
     param(
         [Parameter(Mandatory)][string]$BaseURL,
-        [Parameter(ParameterSetName = 'AccessToken')][string]$AccessToken
+        [Parameter(ParameterSetName = 'AccessToken')][string]$AccessToken,
+        [Parameter(ParameterSetName = 'Credentials')][pscredential]$Credential,
+        [switch]$PassThru
     )
 
     switch ($PSCmdlet.ParameterSetName)
@@ -36,6 +38,15 @@ function Connect-Portainer
             Remove-Variable -Name AccessToken
             $script:PortainerSession = [PortainerSession]::New($BaseURL, $AccessTokenSS)
         }
+        'Credentials'
+        {
+            $script:PortainerSession = [PortainerSession]::New($BaseURL, $Credential)
+        }
+    }
+
+    if ($Passthru)
+    {
+        return $script:PortainerSession
     }
 }
 #endregion

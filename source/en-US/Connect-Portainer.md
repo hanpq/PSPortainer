@@ -11,8 +11,14 @@ schema: 2.0.0
 
 ## SYNTAX
 
+### AccessToken
 ```
-Connect-Portainer -BaseURL <String> [-AccessToken <String>] [<CommonParameters>]
+Connect-Portainer -BaseURL <String> [-AccessToken <String>] [-PassThru] [<CommonParameters>]
+```
+
+### Credentials
+```
+Connect-Portainer -BaseURL <String> [-Credential <PSCredential>] [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -48,12 +54,42 @@ Accept wildcard characters: False
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: AccessToken
 Aliases:
 
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Credential
+{{ Fill Credential Description }}
+
+```yaml
+Type: PSCredential
+Parameter Sets: Credentials
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PassThru
+{{ Fill PassThru Description }}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

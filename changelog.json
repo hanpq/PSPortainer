@@ -31,6 +31,24 @@
           "Message": "Added public Get-PortainerStatus function"
         }
       ]
+    },
+    {
+      "Version": "0.0.4",
+      "Date": "2022-10-24",
+      "Items": [
+        {
+          "Type": "added",
+          "Message": "Added Disconnect-Portainer"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Get-PortainerContainer"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Get-PortainerSession"
+        }
+      ]
     }
   ]
 }

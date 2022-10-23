@@ -26,7 +26,9 @@ function InvokePortainerRestMethod
         [boolean]$AuthRequired,
         [string]$Method,
         [portainersession]$PortainerSession,
-        [string]$RelativePath
+        [string]$RelativePath,
+        [hashtable]$Body = @{},
+        [hashtable]$Headers = @{}
     )
 
     if (-not $PortainerSession)
@@ -43,17 +45,43 @@ function InvokePortainerRestMethod
         }
     }
 
-    if ($AuthRequired)
-    {
-        #TBD
-    }
-    else
-    {
-        Write-Debug -Message "InvokePortainerRestMethod; Calling [$($PortainerSession.ApiUri)$($RelativePath)] with method [$Method] [without auth]"
-        Invoke-RestMethod -Method:$Method -Uri "$($PortainerSession.ApiUri)$($RelativePath)"
+    $InvokeRestMethodSplat = @{
+        Method = $Method
+        Uri    = "$($PortainerSession.ApiUri)$($RelativePath)"
     }
 
+    if ($AuthRequired)
+    {
+        switch ($PortainerSession.AuthMethod)
+        {
+            'Credential'
+            {
+                $InvokeRestMethodSplat.Authentication = 'Bearer'
+                $InvokeRestMethodSplat.Token = $PortainerSession.JWT
+            }
+            'AccessToken'
+            {
+                $Headers.'X-API-Key' = (ConvertFrom-SecureString -SecureString $PortainerSession.AccessToken -AsPlainText)
+            }
+        }
+    }
+
+    if ($Headers.Keys.Count -gt 0)
+    {
+        $InvokeRestMethodSplat.Headers = $Headers
+    }
+    if ($Body.Keys.Count -gt 0)
+    {
+        $InvokeRestMethodSplat.Body = $Body | ConvertTo-Json
+    }
+
+
+    Write-Debug -Message "InvokePortainerRestMethod; Calling Invoke-RestMethod with settings`r`n$($InvokeRestMethodSplat | ConvertTo-Json)"
+    Invoke-RestMethod @InvokeRestMethodSplat
+
 }
+
+
 #endregion
 
 
