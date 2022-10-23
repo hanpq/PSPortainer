@@ -1,15 +1,36 @@
 {
   "Versions": [
-     {
-        "Version": "0.0.1",
-        "Date": "",
-        "Items":[
-           {
-              "Type": "other",
-              "Message": "First version"
-           }
-        ]
-     }
+    {
+      "Version": "0.0.1",
+      "Date": "",
+      "Items": [
+        {
+          "Type": "other",
+          "Message": "First version"
+        }
+      ]
+    },
+    {
+      "Version": "0.0.3",
+      "Date": "2022-10-23",
+      "Items": [
+        {
+          "Type": "added",
+          "Message": "Added base portainer session class and Connect-Portainer"
+        },
+        {
+          "Type": "added",
+          "Message": "Added generic InvokePortainerRestMethod private function"
+        },
+        {
+          "Type": "added",
+          "Message": "Added public Get-PortainerSettingsPublic function"
+        },
+        {
+          "Type": "added",
+          "Message": "Added public Get-PortainerStatus function"
+        }
+      ]
+    }
   ]
 }
-

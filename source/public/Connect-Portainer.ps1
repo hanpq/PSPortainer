@@ -5,7 +5,7 @@
   "FILENAME": "Connect-Portainer.ps1",
   "AUTHOR": "Hannes Palmquist",
   "CREATEDDATE": "2022-10-23",
-  "COMPANYNAME": [],
+  "COMPANYNAME": "GetPS",
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
@@ -20,23 +20,23 @@ function Connect-Portainer
         Connect-Portainer
         Description of example
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'AccessToken')]
 
     [CmdletBinding()] # Enabled advanced function support
     param(
+        [Parameter(Mandatory)][string]$BaseURL,
+        [Parameter(ParameterSetName = 'AccessToken')][string]$AccessToken
     )
 
-    # Get moduleconfiguration
-    try
+    switch ($PSCmdlet.ParameterSetName)
     {
-        $ModuleConfiguration = Get-ModuleConfiguration -ErrorAction Stop
-        pslog -severity Verbose -Message 'Successfully retreived module configuration'
+        'AccessToken'
+        {
+            $AccessTokenSS = ConvertTo-SecureString -String $AccessToken -AsPlainText -Force
+            Remove-Variable -Name AccessToken
+            $script:PortainerSession = [PortainerSession]::New($BaseURL, $AccessTokenSS)
+        }
     }
-    catch
-    {
-        pslog -severity Error -Message 'Failed to retreive module configuration'
-        throw
-    }
-
 }
 #endregion
 
