@@ -20,7 +20,6 @@ function InvokePortainerRestMethod
         InvokePortainerRestMethod
         Description of example
     #>
-
     [CmdletBinding()] # Enabled advanced function support
     param(
         [boolean]$AuthRequired,
