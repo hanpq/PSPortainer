@@ -20,9 +20,11 @@ function Get-PStatus
         Get public status for portainer instance
     #>
     [CmdletBinding()]
-    param()
+    param(
+        [Parameter()][PortainerSession]$Session = $null
+    )
 
-    InvokePortainerRestMethod -NoAuth -Method Get -RelativePath '/status'
+    InvokePortainerRestMethod -NoAuth -Method Get -RelativePath '/status' -PortainerSession:$Session
 
 }
 #endregion

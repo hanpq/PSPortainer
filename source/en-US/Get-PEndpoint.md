@@ -13,17 +13,17 @@ schema: 2.0.0
 
 ### List (Default)
 ```
-Get-PEndpoint [<CommonParameters>]
+Get-PEndpoint [-Session <PortainerSession>] [<CommonParameters>]
 ```
 
 ### Search
 ```
-Get-PEndpoint [-SearchString <String>] [<CommonParameters>]
+Get-PEndpoint [-SearchString <String>] [-Session <PortainerSession>] [<CommonParameters>]
 ```
 
 ### Id
 ```
-Get-PEndpoint [-Id <Int32>] [<CommonParameters>]
+Get-PEndpoint [-Id <Int32>] [-Session <PortainerSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -55,8 +55,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned...
-\[Parameter(ParameterSetName = 'Name')\]\[string\]$Name
+{{ Fill Id Description }}
 
 ```yaml
 Type: Int32
@@ -66,6 +65,22 @@ Aliases:
 Required: False
 Position: Named
 Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Session
+Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned...
+\[Parameter(ParameterSetName = 'Name')\]\[string\]$Name
+
+```yaml
+Type: PortainerSession
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

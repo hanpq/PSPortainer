@@ -21,10 +21,11 @@ function Get-PEndpoint
         Description of example
     #>
 
-    [CmdletBinding(DefaultParameterSetName = 'List')] # Enabled advanced function support
+    [CmdletBinding(DefaultParameterSetName = 'List')]
     param(
         [Parameter(ParameterSetName = 'Search')][string]$SearchString,
-        [Parameter(ParameterSetname = 'Id')][int]$Id
+        [Parameter(ParameterSetname = 'Id')][int]$Id,
+        [Parameter()][PortainerSession]$Session = $null
 
         # Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned...
         #[Parameter(ParameterSetName = 'Name')][string]$Name
@@ -34,20 +35,20 @@ function Get-PEndpoint
     {
         'List'
         {
-            InvokePortainerRestMethod -Method Get -RelativePath '/endpoints'
+            InvokePortainerRestMethod -Method Get -RelativePath '/endpoints' -PortainerSession:$Session
         }
         'Search'
         {
-            InvokePortainerRestMethod -Method Get -RelativePath '/endpoints' -Body @{search = $SearchString }
+            InvokePortainerRestMethod -Method Get -RelativePath '/endpoints' -Body @{search = $SearchString } -PortainerSession:$Session
         }
         'Id'
         {
-            InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$Id"
+            InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$Id" -PortainerSession:$Session
         }
         <#
         'Name'
         {
-            InvokePortainerRestMethod -Method Get -RelativePath '/endpoints' -Body @{name = $Name }
+            InvokePortainerRestMethod -Method Get -RelativePath '/endpoints' -Body @{name = $Name } -PortainerSession:$Session
         }
         #>
     }

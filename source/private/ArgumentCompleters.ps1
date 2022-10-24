@@ -32,6 +32,7 @@ function AC_Endpoints
     return $CompletionResults
 }
 Register-ArgumentCompleter -CommandName 'Get-PContainer' -Parameter 'Endpoint' -ScriptBlock $function:AC_Endpoints
+Register-ArgumentCompleter -CommandName 'Select-PEndpoint' -Parameter 'Endpoint' -ScriptBlock $function:AC_Endpoints
 #endregion
 
 

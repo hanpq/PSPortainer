@@ -63,6 +63,20 @@
           "Message": "Added Argument completer for Endpoint parameters"
         }
       ]
+    },
+    {
+      "Version": "0.0.7",
+      "Date": "2022-10-24",
+      "Items": [
+        {
+          "Type": "added",
+          "Message": "Added Select-PEndpoint"
+        },
+        {
+          "Type": "added",
+          "Message": "Added SessionID to PortainerSession class"
+        }
+      ]
     }
   ]
 }

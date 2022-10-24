@@ -174,9 +174,34 @@ Description of example</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Disconnect-Portainer</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill Session Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PortainerSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
-    <command:parameters />
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Session</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Session Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+        <dev:type>
+          <maml:name>PortainerSession</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
     <command:inputTypes />
     <command:returnValues />
     <maml:alertSet>
@@ -211,7 +236,7 @@ Description of example</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PContainer</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Endpoint</maml:name>
           <maml:description>
             <maml:para>{{ Fill Endpoint Description }}</maml:para>
@@ -235,10 +260,22 @@ Description of example</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill Session Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PortainerSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Endpoint</maml:name>
         <maml:description>
           <maml:para>{{ Fill Endpoint Description }}</maml:para>
@@ -258,6 +295,18 @@ Description of example</dev:code>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Session</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Session Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+        <dev:type>
+          <maml:name>PortainerSession</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -309,13 +358,25 @@ Description of example</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:description>
+            <maml:para>Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned... [Parameter(ParameterSetName = 'Name')][string]$Name</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PortainerSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-PEndpoint</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Id</maml:name>
           <maml:description>
-            <maml:para>Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned... [Parameter(ParameterSetName = 'Name')][string]$Name</maml:para>
+            <maml:para>{{ Fill Id Description }}</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -323,6 +384,18 @@ Description of example</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:description>
+            <maml:para>Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned... [Parameter(ParameterSetName = 'Name')][string]$Name</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PortainerSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -342,7 +415,7 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Id</maml:name>
         <maml:description>
-          <maml:para>Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned... [Parameter(ParameterSetName = 'Name')][string]$Name</maml:para>
+          <maml:para>{{ Fill Id Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -350,6 +423,18 @@ Description of example</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Session</maml:name>
+        <maml:description>
+          <maml:para>Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned... [Parameter(ParameterSetName = 'Name')][string]$Name</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+        <dev:type>
+          <maml:name>PortainerSession</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes />
@@ -569,9 +654,34 @@ Description of example</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PSettingsPublic</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill Session Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PortainerSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
-    <command:parameters />
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Session</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Session Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+        <dev:type>
+          <maml:name>PortainerSession</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
     <command:inputTypes />
     <command:returnValues />
     <maml:alertSet>
@@ -605,9 +715,34 @@ Description of example</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PStatus</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill Session Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PortainerSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
-    <command:parameters />
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Session</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Session Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+        <dev:type>
+          <maml:name>PortainerSession</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
     <command:inputTypes />
     <command:returnValues />
     <maml:alertSet>
@@ -621,6 +756,92 @@ Description of example</dev:code>
         <dev:code>Get-PStatus</dev:code>
         <dev:remarks>
           <maml:para>Get public status for portainer instance</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Select-PEndpoint</command:name>
+      <command:verb>Select</command:verb>
+      <command:noun>PEndpoint</command:noun>
+      <maml:description>
+        <maml:para></maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Select-PEndpoint</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Endpoint</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill Endpoint Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill Session Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PortainerSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Endpoint</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Endpoint Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Session</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill Session Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+        <dev:type>
+          <maml:name>PortainerSession</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Select-PEndpoint
+Description of example</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

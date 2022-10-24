@@ -5,29 +5,43 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-PStatus
+# Select-PEndpoint
 
 ## SYNOPSIS
 
 ## SYNTAX
 
 ```
-Get-PStatus [[-Session] <PortainerSession>] [<CommonParameters>]
+Select-PEndpoint [[-Endpoint] <String>] [[-Session] <PortainerSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Get public status for portainer instance
+.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-PStatus
+Select-PEndpoint
+Description of example
 ```
 
-Get public status for portainer instance
-
 ## PARAMETERS
+
+### -Endpoint
+{{ Fill Endpoint Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Session
 {{ Fill Session Description }}
@@ -38,7 +52,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -21,9 +21,11 @@ function Get-PSettingsPublic
     #>
 
     [CmdletBinding()]
-    param()
+    param(
+        [Parameter()][PortainerSession]$Session = $null
+    )
 
-    InvokePortainerRestMethod -NoAuth -Method Get -RelativePath '/settings/public'
+    InvokePortainerRestMethod -NoAuth -Method Get -RelativePath '/settings/public' -PortainerSession:$Session
 
 }
 #endregion

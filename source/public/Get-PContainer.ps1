@@ -10,9 +10,6 @@
 }
 PSScriptInfo#>
 
-
-
-
 function Get-PContainer
 {
     <#
@@ -25,13 +22,32 @@ function Get-PContainer
         Description of example
     #>
 
-    [CmdletBinding(DefaultParameterSetName = 'list')] # Enabled advanced function support
+    [CmdletBinding(DefaultParameterSetName = 'list')]
     param(
-        [Parameter(Mandatory)][string]$Endpoint,
-        [Parameter(ParameterSetName = 'id')][string]$Id
+        [Parameter()][string]$Endpoint,
+        [Parameter(ParameterSetName = 'id')][string]$Id,
+        [Parameter()][PortainerSession]$Session = $null
     )
 
-    # Resolve endpointid
+    # Resolve Endpoint
+    if ($null -eq $Endpoint)
+    {
+        if ($null -ne $script:PortainerSession)
+        {
+            if ($script:PortainerSession.DefaultDockerEndpoint)
+            {
+                $Endpoint = $script:PortainerSession.DefaultDockerEndpoint
+            }
+            else
+            {
+                $Endpoint = Read-Host -Prompt 'EndpointId'
+            }
+        }
+        else
+        {
+            $Endpoint = Read-Host -Prompt 'EndpointId'
+        }
+    }
     $EndpointId = Get-PEndpoint -SearchString $Endpoint | Select-Object -ExpandProperty Id
 
     if ($EndpointId)
@@ -40,11 +56,11 @@ function Get-PContainer
         {
             'list'
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json"
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session
             }
             'id'
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$Id/json"
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$Id/json" -PortainerSession:$Session
             }
         }
     }

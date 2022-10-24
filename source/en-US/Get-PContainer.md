@@ -13,12 +13,12 @@ schema: 2.0.0
 
 ### list (Default)
 ```
-Get-PContainer -Endpoint <String> [<CommonParameters>]
+Get-PContainer [-Endpoint <String>] [-Session <PortainerSession>] [<CommonParameters>]
 ```
 
 ### id
 ```
-Get-PContainer -Endpoint <String> [-Id <String>] [<CommonParameters>]
+Get-PContainer [-Endpoint <String>] [-Id <String>] [-Session <PortainerSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +42,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -55,6 +55,21 @@ Accept wildcard characters: False
 ```yaml
 Type: String
 Parameter Sets: id
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Session
+{{ Fill Session Description }}
+
+```yaml
+Type: PortainerSession
+Parameter Sets: (All)
 Aliases:
 
 Required: False
