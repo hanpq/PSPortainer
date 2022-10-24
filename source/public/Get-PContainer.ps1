@@ -9,6 +9,10 @@
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
+
+
+
+
 function Get-PContainer
 {
     <#
@@ -21,13 +25,33 @@ function Get-PContainer
         Description of example
     #>
 
-    [CmdletBinding()] # Enabled advanced function support
+    [CmdletBinding(DefaultParameterSetName = 'list')] # Enabled advanced function support
     param(
+        [Parameter(Mandatory)][string]$Endpoint,
+        [Parameter(ParameterSetName = 'id')][string]$Id
     )
 
-    InvokePortainerRestMethod -AuthRequired:$true -Method Get -RelativePath '/endpoints/1/docker/containers/json' | ForEach-Object { $_ }
+    # Resolve endpointid
+    $EndpointId = Get-PEndpoint -SearchString $Endpoint | Select-Object -ExpandProperty Id
+
+    if ($EndpointId)
+    {
+        switch ($PSCmdlet.ParameterSetName)
+        {
+            'list'
+            {
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json"
+            }
+            'id'
+            {
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$Id/json"
+            }
+        }
+    }
+    else
+    {
+        Write-Warning -Message 'No endpoint found'
+    }
 
 }
 #endregion
-
-

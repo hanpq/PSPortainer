@@ -22,7 +22,7 @@ function InvokePortainerRestMethod
     #>
     [CmdletBinding()] # Enabled advanced function support
     param(
-        [boolean]$AuthRequired,
+        [switch]$NoAuth,
         [string]$Method,
         [portainersession]$PortainerSession,
         [string]$RelativePath,
@@ -49,7 +49,7 @@ function InvokePortainerRestMethod
         Uri    = "$($PortainerSession.ApiUri)$($RelativePath)"
     }
 
-    if ($AuthRequired)
+    if (-not $NoAuth)
     {
         switch ($PortainerSession.AuthMethod)
         {
@@ -69,15 +69,23 @@ function InvokePortainerRestMethod
     {
         $InvokeRestMethodSplat.Headers = $Headers
     }
-    if ($Body.Keys.Count -gt 0)
+    if ($Body.Keys.Count -gt 0 )
     {
-        $InvokeRestMethodSplat.Body = $Body | ConvertTo-Json
+        if ($InvokeRestMethodSplat.Method -eq 'Get')
+        {
+            $InvokeRestMethodSplat.Body = $Body
+        }
+        elseif ($InvokeRestMethodSplat.Method -eq 'Post')
+        {
+            # Might need to be changed, some post requests require formdata
+            $InvokeRestMethodSplat.Body = $Body | ConvertTo-Json
+            $InvokeRestMethodSplat.ContentType = 'application/json'
+        }
     }
 
 
     Write-Debug -Message "InvokePortainerRestMethod; Calling Invoke-RestMethod with settings`r`n$($InvokeRestMethodSplat | ConvertTo-Json)"
-    Invoke-RestMethod @InvokeRestMethodSplat
-
+    Invoke-RestMethod @InvokeRestMethodSplat | ForEach-Object { $_ }
 }
 
 

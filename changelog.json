@@ -49,6 +49,20 @@
           "Message": "Added Get-PortainerSession"
         }
       ]
+    },
+    {
+      "Version": "0.0.6",
+      "Date": "2022-10-24",
+      "Items": [
+        {
+          "Type": "removed",
+          "Message": "Removed support for PSEdition Desktop (Windows Powershell)"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Argument completer for Endpoint parameters"
+        }
+      ]
     }
   ]
 }

@@ -5,44 +5,49 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-PContainer
+# Get-PEndpoint
 
 ## SYNOPSIS
 
 ## SYNTAX
 
-### list (Default)
+### List (Default)
 ```
-Get-PContainer -Endpoint <String> [<CommonParameters>]
+Get-PEndpoint [<CommonParameters>]
 ```
 
-### id
+### Search
 ```
-Get-PContainer -Endpoint <String> [-Id <String>] [<CommonParameters>]
+Get-PEndpoint [-SearchString <String>] [<CommonParameters>]
+```
+
+### Id
+```
+Get-PEndpoint [-Id <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retreives containers
+Retreive endpoints
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-PContainer
+Get-PEndpoint
 Description of example
 ```
 
 ## PARAMETERS
 
-### -Endpoint
-{{ Fill Endpoint Description }}
+### -SearchString
+{{ Fill SearchString Description }}
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Search
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -50,16 +55,17 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{ Fill Id Description }}
+Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned...
+\[Parameter(ParameterSetName = 'Name')\]\[string\]$Name
 
 ```yaml
-Type: String
-Parameter Sets: id
+Type: Int32
+Parameter Sets: Id
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

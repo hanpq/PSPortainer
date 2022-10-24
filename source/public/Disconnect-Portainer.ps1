@@ -25,6 +25,7 @@ function Disconnect-Portainer
     param(
     )
 
+    InvokePortainerRestMethod -Method Post -RelativePath '/auth/logout'
     $script:PortainerSession = $null
 
 }

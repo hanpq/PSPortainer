@@ -23,7 +23,7 @@ function Get-PSettingsPublic
     [CmdletBinding()]
     param()
 
-    InvokePortainerRestMethod -AuthRequired:$false -Method Get -RelativePath '/settings/public'
+    InvokePortainerRestMethod -NoAuth -Method Get -RelativePath '/settings/public'
 
 }
 #endregion

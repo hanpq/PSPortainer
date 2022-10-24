@@ -46,14 +46,14 @@ class PortainerSession
 
     hidden AuthenticateCredential()
     {
-        $JWTResponse = InvokePortainerRestMethod -AuthRequired:$false -Method:'Post' -PortainerSession $this -RelativePath '/auth' -Body @{password = $this.Credential.GetNetworkCredential().Password; username = $this.Credential.Username }
+        $JWTResponse = InvokePortainerRestMethod -NoAuth -Method:'Post' -PortainerSession $this -RelativePath '/auth' -Body @{password = $this.Credential.GetNetworkCredential().Password; username = $this.Credential.Username }
         $this.JWT = ConvertTo-SecureString -String $JWTResponse.JWT -AsPlainText -Force
         Remove-Variable -Name JWTResponse
     }
 
     hidden GetStatus()
     {
-        $Status = InvokePortainerRestMethod -AuthRequired:$false -Method:'Get' -PortainerSession $this -RelativePath '/status'
+        $Status = InvokePortainerRestMethod -NoAuth -Method:'Get' -PortainerSession $this -RelativePath '/status'
         $this.PortainerVersion = $Status.Version
         $this.InstanceID = $Status.InstanceID
         Remove-Variable -Name Status

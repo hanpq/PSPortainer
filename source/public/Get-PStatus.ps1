@@ -22,7 +22,7 @@ function Get-PStatus
     [CmdletBinding()]
     param()
 
-    InvokePortainerRestMethod -AuthRequired:$false -Method Get -RelativePath '/status'
+    InvokePortainerRestMethod -NoAuth -Method Get -RelativePath '/status'
 
 }
 #endregion
