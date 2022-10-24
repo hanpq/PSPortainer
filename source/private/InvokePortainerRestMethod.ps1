@@ -78,14 +78,14 @@ function InvokePortainerRestMethod
         elseif ($InvokeRestMethodSplat.Method -eq 'Post')
         {
             # Might need to be changed, some post requests require formdata
-            $InvokeRestMethodSplat.Body = $Body | ConvertTo-Json
+            $InvokeRestMethodSplat.Body = $Body | ConvertTo-Json -Compress
             $InvokeRestMethodSplat.ContentType = 'application/json'
         }
     }
 
 
     Write-Debug -Message "InvokePortainerRestMethod; Calling Invoke-RestMethod with settings`r`n$($InvokeRestMethodSplat | ConvertTo-Json)"
-    Invoke-RestMethod @InvokeRestMethodSplat | ForEach-Object { $_ }
+    Invoke-RestMethod @InvokeRestMethodSplat -Verbose:$false | ForEach-Object { $_ }
 }
 
 

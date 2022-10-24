@@ -94,7 +94,7 @@ function Show-MultiChoise
     .NOTES
         This command relies on the Get-KeyCode advanced function.
     #>
-    
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)][ValidateScript( { $_.GetType().name -eq 'HashTable' -or $_.GetType().Name -eq 'String' })]
@@ -218,7 +218,7 @@ function Compare-StringArray
     .EXAMPLE
         Compare-StringArray -ReferenceArray @('Ett','Två','Tre') -DifferencingArray @('Tre','Fyra','Fem') -ExclusiveInBoth
         Returns Ett,Två,Fyra,Fem
-    #>   
+    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'Parameter used to select parameter set name')]
     [CmdletBinding()]
     param(
@@ -454,12 +454,12 @@ Task -name 'BuildScriptDependencies' {
     $Modules = @('pstools.psscriptinfo', 'configuration', 'pester')
     foreach ($module in $modules)
     {
-        if (-not (Get-Module -Name $module -ListAvailable))
+        if (-not (Get-Module -name $module -ListAvailable))
         {
             Write-CheckListItem -Severity Negative -Message "Module [$module] was not found, aborting..."
             break
         }
-    }    
+    }
 }
 
 Task -name 'PrepareModule' -depends @(
@@ -470,12 +470,13 @@ Task -name 'PrepareModule' -depends @(
     'UpdateFunctionPSScriptInfo',
     'RebuildManifest',
     'UpdateFunctionsToExport',
+    'UpdateFormatsToProcess',
     'UpdateLastBuildDate',
     'UpdateFileList'
     'UpdateEncoding',
     'UpdateEOL'
 )
- 
+
 # Published tasks
 Task -name 'Test' -depends @(
     'PrepareModule',
@@ -493,11 +494,11 @@ Task -name 'Release' -depend @(
     'PreExportClean',
     'ExportCreate',
     'ExportPushModule',
-    'ExportSign', 
-    'BuildZIP', 
+    'ExportSign',
+    'BuildZIP',
     'BuildInstaller',
     'PublishToProGet',
-    'PublishToGallery', 
+    'PublishToGallery',
     'PostExportClean',
     'CommitAndPushRepository',
     'TagAndRelease'
@@ -508,11 +509,13 @@ Task -name 'ReleaseMajor' -depends @(
     'MajorVersion',
     'Release'
 )
+
 Task -name 'ReleaseMinor' -depends @(
     'Test',
     'MinorVersion',
     'Release'
 )
+
 Task -name 'ReleasePatch' -depends @(
     'Test',
     'PatchVersion',
@@ -534,7 +537,7 @@ Task -name 'CommitAndPushRepository' -precondition { $buildconfig.Github } -acti
         git -C $path_root commit -m 'Build commit' --quiet
         git -C $path_root push --quiet
     }
-    else 
+    else
     {
         git -C $path_root init --initial-branch=main
         git -C $path_root add .
@@ -547,19 +550,19 @@ Task -name 'CommitAndPushRepository' -precondition { $buildconfig.Github } -acti
 
 Task -name 'CreateMissingFolders' {
     $sourcerootfolders = @(
-        'release', 
-        'stage', 
+        'release',
+        'stage',
         'installer',
-        'source', 
-        'source\data', 
-        'source\docs', 
-        'source\en-US', 
-        'source\include', 
-        'source\private', 
-        'source\public', 
-        'source\settings', 
-        'tests', 
-        'tests\integration', 
+        'source',
+        'source\data',
+        'source\docs',
+        'source\en-US',
+        'source\include',
+        'source\private',
+        'source\public',
+        'source\settings',
+        'tests',
+        'tests\integration',
         'tests\module',
         'tests\unit'
     )
@@ -581,7 +584,7 @@ Task -name 'CreateMissingFolders' {
             }
         }
     }
-} 
+}
 
 Task -name 'PublishToGallery' -precondition { $buildconfig.PSGallery } -action {
     try
@@ -604,7 +607,7 @@ Task -name 'PublishToGallery' -precondition { $buildconfig.PSGallery } -action {
             Write-Host $_
         }
     }
-} 
+}
 
 Task -name 'PublishToProGet' -action {
     try
@@ -637,7 +640,7 @@ Task -name 'ChangeLog' -action {
             try
             {
                 $import_modulemanifest = Import-PowerShellDataFile -Path $path_modulemanifest -ErrorAction Stop
-    
+
                 # Request list of changes
                 Write-Host
 
@@ -678,34 +681,34 @@ Task -name 'ChangeLog' -action {
             }
             catch
             {
-                Throw $_  
-            } 
+                Throw $_
+            }
         }
         Write-CheckListItem -Message 'Changelog updated' -Severity Positive -Milliseconds $Measure.TotalMilliseconds
     }
     Write-Host
-} 
+}
 
 Task -name 'MajorVersion' -description 'Published' -action {
     $Measure = Measure-Command -Expression {
         $NewVersion = Update-Metadata -Path $path_modulemanifest -Increment Major -Passthru
     }
     Write-CheckListItem -Message ('Module version updated in source to {0} ' -f $NewVersion) -Severity Positive -Milliseconds $Measure.TotalMilliseconds
-} 
+}
 
 Task -name 'MinorVersion' -description 'Published' -action {
     $Measure = Measure-Command -Expression {
         $NewVersion = Update-Metadata -Path $path_modulemanifest -Increment Minor -Passthru
     }
     Write-CheckListItem -Message ('Module version updated in source to {0} ' -f $NewVersion) -Severity Positive -Milliseconds $Measure.TotalMilliseconds
-} 
+}
 
 Task -name 'PatchVersion' -description 'Published' -action {
     $Measure = Measure-Command -Expression {
         $NewVersion = Update-Metadata -Path $path_modulemanifest -Increment Build -Passthru
     }
     Write-CheckListItem -Message ('Module version updated in source to {0} ' -f $NewVersion) -Severity Positive -Milliseconds $Measure.TotalMilliseconds
-} 
+}
 
 Task -name 'ValidateModuleConfiguration' -action {
     switch ($buildconfig)
@@ -715,7 +718,7 @@ Task -name 'ValidateModuleConfiguration' -action {
             Write-CheckListItem -Severity Negative -Message 'If codecov should be used, GitHub must be enabled aswell'; throw
         }
         { $_.getpsdev -and -not $_.github } # GetPSDev depends on github
-        { 
+        {
             Write-CheckListItem -Severity Intermediate -Message 'GetPSDev is enabled but github is not'
         }
         { $_.psgallery -and -not $_.github } # PSGallery depends on github
@@ -723,7 +726,7 @@ Task -name 'ValidateModuleConfiguration' -action {
             Write-CheckListItem -Severity Intermediate -Message 'PSGallery is enabled but github is not'
         }
         <#
-        { $_.psgallery -and -not $_.sign } # PSGallery depends on Sign 
+        { $_.psgallery -and -not $_.sign } # PSGallery depends on Sign
         {
             Write-CheckListItem -Severity Negative -Message 'If PSGallery should be used, Sign must be enabled aswell'; throw
         }
@@ -753,7 +756,7 @@ Task -name 'FindMissingTests' -action {
             Write-CheckListItem -Severity Negative -Message ('Failed to validate if tests are available for {0} with error:' -f $File.Name, $_.exception.message)
         }
     }
-} 
+}
 
 Task -name 'UpdateFunctionPSScriptInfo' -action {
 
@@ -761,7 +764,7 @@ Task -name 'UpdateFunctionPSScriptInfo' -action {
     $array_fileinfo_all_functions = [collections.arraylist]::New()
     Get-ChildItem -Path "$path_root_source\public" -Recurse -File -Filter '*.ps1' | ForEach-Object { $null = $array_fileinfo_all_functions.Add($PSItem) }
     Get-ChildItem -Path "$path_root_source\private" -Recurse -File -Filter '*.ps1' | ForEach-Object { $null = $array_fileinfo_all_functions.Add($PSItem) }
-    
+
     $array_fileinfo_all_public_functions = @(Get-ChildItem -Path (Join-Path $path_root_source 'public') -Recurse -File -Filter '*.ps1')
 
     foreach ($File in $array_fileinfo_all_functions)
@@ -777,10 +780,10 @@ Task -name 'UpdateFunctionPSScriptInfo' -action {
             Write-CheckListItem -Message ('Failed to update PSScriptInfo for: {0} with error: {1}' -f $File.Name, $_.exception.message)
         }
     }
-} 
+}
 
 Task -name 'UpdateEncoding' -action {
-    
+
     Get-ChildItem -Path $path_root_source -Recurse -Filter * -Include '*.ps1', '*.psd1', '*.psm1' | ForEach-Object {
 
         $EncodingObject = Get-FileEncoding -Path $PSItem.FullName
@@ -800,13 +803,13 @@ Task -name 'UpdateEncoding' -action {
             }
         }
     }
-} 
+}
 
 Task -name 'UpdateEOL' -action {
     Get-ChildItem -Path $path_root_source -Recurse -Filter * -Include '*.ps1', '*.psd1', '*.psm1' | ForEach-Object {
-        
+
         $Result = Test-FileEndOfLine -ScriptFilePath $PSItem.FullName
-        
+
         if (@('Windows', 'None') -notcontains $Result)
         {
             try
@@ -823,7 +826,7 @@ Task -name 'UpdateEOL' -action {
             }
         }
     }
-} 
+}
 
 Task -name 'RebuildManifest' -action {
     try
@@ -835,7 +838,7 @@ Task -name 'RebuildManifest' -action {
         Write-CheckListItem -message ('Failed to rebuilded module manifest ' -f $PSItem) -Severity Negative
         $_
     }
-} 
+}
 
 Task -name 'UpdateFunctionsToExport' {
     Import-Module Configuration
@@ -857,7 +860,7 @@ Task -name 'UpdateFunctionsToExport' {
     Compare-StringArray -ReferenceArray $manifestfunctions -DifferencingArray $publicfunctions.BaseName -ExclusiveInReferenceArray | ForEach-Object {
         Write-CheckListItem -Message ('Removed {0} from exportlist ' -f $PSItem) -Severity Positive
     }
-} 
+}
 
 Task -name 'UpdateLastBuildDate' -action {
     try
@@ -869,7 +872,51 @@ Task -name 'UpdateLastBuildDate' -action {
         Write-CheckListItem -Message 'Failed to update LastBuildDate in manifest' -Severity Negative
         $_
     }
-} 
+}
+
+Task -name 'UpdateFormatsToProcess' -action {
+    try
+    {
+        $SavedErrorActionPreference = $global:ErrorActionPreference
+        $global:ErrorActionPreference = 'Stop'
+
+        Push-Location -Path $path_root_source
+        Import-Module Configuration
+        $manifestformats = Invoke-Expression ((Get-Metadata -Path $path_modulemanifest -PropertyName 'FormatsToProcess' -Passthru).Extent.Text)
+        [array]$formats = Get-ChildItem -Path "$path_root_source\include" -Recurse -File -Filter '*Format.ps1xml'
+        $formats | ForEach-Object {
+            $PSItem | Add-Member -MemberType NoteProperty -Name RelativePath -Value (
+                Resolve-Path -Path $PSItem.FullName -Relative
+            )
+        }
+        if ($null -ne $formats)
+        {
+            # Replace functions to export string
+            Update-Metadata -Path $path_modulemanifest -PropertyName FormatsToProcess -Value ([array]($formats.RelativePath))
+        }
+
+        # Compare and print for information only
+        Compare-StringArray -ReferenceArray $formats.RelativePath -DifferencingArray $manifestformats -ExclusiveInReferenceArray | ForEach-Object {
+            Write-CheckListItem -Message ('Added {0} to exportlist ' -f $PSItem) -Severity Positive
+        }
+
+        # Compare and print for information only
+        Compare-StringArray -ReferenceArray $manifestformats -DifferencingArray $formats.RelativePath -ExclusiveInReferenceArray | ForEach-Object {
+            Write-CheckListItem -Message ('Removed {0} from exportlist ' -f $PSItem) -Severity Positive
+        }
+
+        Pop-Location
+    }
+    catch
+    {
+        Write-CheckListItem -Message 'Failed to add FormatsToProcess' -Severity Negative
+        $_
+    }
+    finally
+    {
+        $global:ErrorActionPreference = $SavedErrorActionPreference
+    }
+}
 
 Task -name 'UpdateFileList' -action {
     try
@@ -878,14 +925,14 @@ Task -name 'UpdateFileList' -action {
         $global:ErrorActionPreference = 'Stop'
 
         Push-Location -Path $path_root_source
-        $AllSourceFiles = Get-ChildItem -Path $path_root_source -Exclude 'logs', 'output', 'temp' | Get-ChildItem -File -Recurse
+        [array]$AllSourceFiles = Get-ChildItem -Path $path_root_source -Exclude 'logs', 'output', 'temp' | Get-ChildItem -File -Recurse
         $AllSourceFiles | ForEach-Object {
-            $PSItem | Add-Member -MemberType NoteProperty -name RelativePath -Value (
+            $PSItem | Add-Member -MemberType NoteProperty -Name RelativePath -Value (
                 Resolve-Path -Path $PSItem.FullName -Relative
             )
         }
         Pop-Location
-        Update-Metadata -Path $path_modulemanifest -PropertyName FileList -Value $AllSourceFiles.RelativePath
+        Update-Metadata -Path $path_modulemanifest -PropertyName FileList -Value ([array]($AllSourceFiles.RelativePath))
     }
     catch
     {
@@ -896,9 +943,9 @@ Task -name 'UpdateFileList' -action {
     {
         $global:ErrorActionPreference = $SavedErrorActionPreference
     }
-} 
+}
 
-Task -name 'PesterUnitTests' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.desktop } -action {    
+Task -name 'PesterUnitTests' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.desktop } -action {
     # Pester configuration
     if (Get-ChildItem "$path_root\Tests\Unit")
     {
@@ -912,9 +959,9 @@ Task -name 'PesterUnitTests' -precondition { $buildconfig.RunPesterTests -and $b
             throw
         }
     }
-} 
+}
 
-Task -name 'PesterModuleTests' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.desktop } -action {    
+Task -name 'PesterModuleTests' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.desktop } -action {
     # Run Tests
     if (Get-ChildItem "$path_root\Tests\Module")
     {
@@ -928,9 +975,9 @@ Task -name 'PesterModuleTests' -precondition { $buildconfig.RunPesterTests -and 
             throw
         }
     }
-} 
+}
 
-Task -name 'PesterIntegrationTests' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.desktop } -action {   
+Task -name 'PesterIntegrationTests' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.desktop } -action {
 
     if (Get-ChildItem "$path_root\Tests\Integration")
     {
@@ -945,9 +992,9 @@ Task -name 'PesterIntegrationTests' -precondition { $buildconfig.RunPesterTests 
         }
 
     }
-} 
+}
 
-Task -name 'PesterUnitTests_Core' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.core } -action {    
+Task -name 'PesterUnitTests_Core' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.core } -action {
     # Pester configuration
     if (Get-ChildItem "$path_root\Tests\Unit")
     {
@@ -961,9 +1008,9 @@ Task -name 'PesterUnitTests_Core' -precondition { $buildconfig.RunPesterTests -a
             throw
         }
     }
-} 
+}
 
-Task -name 'PesterModuleTests_Core' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.core } -action {    
+Task -name 'PesterModuleTests_Core' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.core } -action {
     # Run Tests
     if (Get-ChildItem "$path_root\Tests\Module")
     {
@@ -977,9 +1024,9 @@ Task -name 'PesterModuleTests_Core' -precondition { $buildconfig.RunPesterTests 
             throw
         }
     }
-} 
+}
 
-Task -name 'PesterIntegrationTests_Core' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.core } -action {   
+Task -name 'PesterIntegrationTests_Core' -precondition { $buildconfig.RunPesterTests -and $buildconfig.edition.core } -action {
 
     if (Get-ChildItem "$path_root\Tests\Integration")
     {
@@ -994,15 +1041,15 @@ Task -name 'PesterIntegrationTests_Core' -precondition { $buildconfig.RunPesterT
         }
 
     }
-} 
+}
 
 Task -name 'CreateModuleHelpFiles' -action {
     try
     {
-        Import-Module -name $path_modulemanifest -Scope Global -ErrorAction Stop
+        Import-Module -Name $path_modulemanifest -Scope Global -ErrorAction Stop
         $null = New-MarkdownHelp -Module $modulename -OutputFolder (Join-Path -Path $path_root_source -ChildPath '\en-US') -Force -ErrorAction Stop
         $null = New-ExternalHelp -Path (Join-Path -Path $path_root_source -ChildPath '\en-US') -OutputPath (Join-Path -Path $path_root_source -ChildPath '\en-US') -Force -ErrorAction Stop
-        Remove-Module -name $modulename -Force -ErrorAction Stop
+        Remove-Module -Name $modulename -Force -ErrorAction Stop
     }
     catch
     {
@@ -1025,7 +1072,7 @@ Task -name 'PreExportClean' -action {
     {
         throw $_
     }
-} 
+}
 
 Task -name 'ExportCreate' -action {
     try
@@ -1033,7 +1080,7 @@ Task -name 'ExportCreate' -action {
         $Measure = Measure-Command -Expression {
             # Define and create export folder
             $import_modulemanifest = Import-PowerShellDataFile -Path $path_modulemanifest
-            
+
             # Create export folder
             $ExportFolder = "$path_root\stage\$modulename\$($import_modulemanifest.ModuleVersion)"
             $null = New-Item -Path $ExportFolder -ErrorAction Stop -ItemType Directory
@@ -1064,7 +1111,7 @@ Task -name 'ExportSign' -precondition { $buildconfig.Sign } -action {
         {
             try
             {
-                $Cert = New-CodeSigningCert -Name 'HannesPalmquist' -FriendlyName 'HannesPalmquist' -ErrorAction Stop
+                $Cert = New-CodeSigningCert -name 'HannesPalmquist' -FriendlyName 'HannesPalmquist' -ErrorAction Stop
                 Write-CheckListItem -Message 'Successfully created Code Signing Certificate' -Severity Positive
             }
             catch
@@ -1078,19 +1125,19 @@ Task -name 'ExportSign' -precondition { $buildconfig.Sign } -action {
             Remove-Item -Path ('Cert:\CurrentUser\My\{0}' -f $Cert.Thumbprint) -Force
             try
             {
-                $Cert = New-CodeSigningCert -Name 'HannesPalmquist' -FriendlyName 'HannesPalmquist' -ErrorAction Stop
+                $Cert = New-CodeSigningCert -name 'HannesPalmquist' -FriendlyName 'HannesPalmquist' -ErrorAction Stop
                 Write-CheckListItem -Message 'Successfully renewed Code Signing Certificate' -Severity Positive
             }
             catch
             {
                 Write-CheckListItem -Message 'Failed to create Code Signing Certificate' -Severity Negative
                 throw $_
-            }        
+            }
         }
         if ($Cert)
         {
             $import_modulemanifest = Import-PowerShellDataFile -Path $path_modulemanifest
-            
+
             $ExportPath = "$path_root\stage\$modulename\$($import_modulemanifest.moduleversion)"
             $ScriptsToBeSigned = Get-ChildItem -Path $ExportPath -Recurse -Include '*.ps1', '*.psm1', '*.psd1' | Where-Object { $_.FullName -notlike '*\data\*' -and $_.FullName -notlike '*\include\*' -and $_.Name -ne 'run.ps1' }
             foreach ($File in $ScriptsToBeSigned)
@@ -1098,7 +1145,7 @@ Task -name 'ExportSign' -precondition { $buildconfig.Sign } -action {
                 try
                 {
                     $measure = Measure-Command -Expression {
-                        $null = Set-AuthenticodeSignature -Certificate $cert -TimestampServer 'http://timestamp.digicert.com' -FilePath $File.FullName -ErrorAction stop  
+                        $null = Set-AuthenticodeSignature -Certificate $cert -TimestampServer 'http://timestamp.digicert.com' -FilePath $File.FullName -ErrorAction stop
                     }
                     Write-CheckListItem -Message ('Signed {0}  ' -f $File.Name) -Severity Positive -Milliseconds $measure.TotalMilliseconds
                 }
@@ -1107,7 +1154,7 @@ Task -name 'ExportSign' -precondition { $buildconfig.Sign } -action {
                     Write-CheckListItem -Message ('Failed to sign file {0}' -f $File.Name) -Severity Negative -Milliseconds $measure.TotalMilliseconds
                     throw $_
                 }
-            }    
+            }
         }
         else
         {
@@ -1124,7 +1171,7 @@ Task -name 'BuildZIP' -precondition { $buildconfig.CreateZIP }-action {
     try
     {
         $import_modulemanifest = Import-PowerShellDataFile -Path $path_modulemanifest
-        
+
         $SourceArchive = "$path_root\stage\$modulename"
         $TargetArchive = "$path_root\release\$($import_modulemanifest.moduleversion)\$modulename.zip"
         $null = New-Item -Path "$path_root\release\$($import_modulemanifest.moduleversion)" -ItemType Directory -ErrorAction Stop
@@ -1150,13 +1197,13 @@ Task -name 'BuildInstaller' -precondition { $buildconfig.CreateInstall } -action
         Write-CheckListItem -Message 'Inno Setup not installed' -Severity Negative
         break
     }
-    
+
     try
     {
         $Measure = Measure-Command -Expression {
             # Reimport module manifest to get the new module version
             $import_modulemanifest = Import-PowerShellDataFile -Path $path_modulemanifest
-            
+
             $InstallScriptTemplate = Get-Content "$path_root\installer\installscripttemplate.txt" -Raw
             $ReplaceHash = @{
                 modulename      = $modulename
@@ -1172,7 +1219,7 @@ Task -name 'BuildInstaller' -precondition { $buildconfig.CreateInstall } -action
             foreach ($key in $ReplaceHash.Keys)
             {
                 $InstallScriptTemplate = $InstallScriptTemplate.Replace("[$Key]", $ReplaceHash[$Key])
-            } 
+            }
 
             $InstallScriptTemplate | Out-File -FilePath "$path_root\installer\InstallScript.iss" -Encoding UTF8
 
@@ -1186,7 +1233,7 @@ Task -name 'BuildInstaller' -precondition { $buildconfig.CreateInstall } -action
         Write-CheckListItem -Message 'Failed to compile installer package' -Severity Negative
         throw $_
     }
-} 
+}
 
 Task -name 'ExportPushModule' -precondition { $buildconfig.PushLocal } -action {
     try
@@ -1232,15 +1279,15 @@ Task -name 'ExportPushModule' -precondition { $buildconfig.PushLocal } -action {
         }
 
         # Clean old versions
-        Get-ChildItem "$PSItem\$modulename" -Directory -ErrorAction SilentlyContinue | 
+        Get-ChildItem "$PSItem\$modulename" -Directory -ErrorAction SilentlyContinue |
         Select-Object -Property *, @{name = 'VersionObject'; exp = { [System.Version]($PSItem.BaseName) } } |
         Sort-Object -Property 'VersionObject' -Descending |
-        Select-Object -Skip 2 | 
+        Select-Object -Skip 2 |
         ForEach-Object {
             $currentitem = $PSItem
             try
             {
-                # Workaround, a bug with remove-item and onedrive with enabled filesondemand caused it to fail when removing items. However 
+                # Workaround, a bug with remove-item and onedrive with enabled filesondemand caused it to fail when removing items. However
                 # using the Delete method of the file item circumvents this issue.
                 $path = $currentitem.fullname
                 $Counter = 0
@@ -1275,17 +1322,17 @@ Task -name 'ExportPushModule' -precondition { $buildconfig.PushLocal } -action {
                     catch
                     {
                         Write-CheckListItem -Message ('Failed to remove old version: {0} with error: {1}' -f $CurrentItem.Name, $_.exception.message) -Severity Negative
-                    } 
+                    }
                 }
             }
             catch
             {
                 Write-CheckListItem -Message ('Failed to remove old version: {0} with error: {1}' -f $CurrentItem.Name, $_.exception.message) -Severity Negative
             }
-            
+
         }
     }
-} 
+}
 
 Task -name 'PostExportClean' -action {
     try

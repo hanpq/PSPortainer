@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>PSPortainer.Container</Name>
+            <ViewSelectedBy>
+                <TypeName>PSPortainer.Container</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader>
+                        <Label>Name</Label>
+                        <Width>30</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Status</Label>
+                        <Width>10</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Image</Label>
+                        <Width>45</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Uptime</Label>
+                        <Width>15</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Platform</Label>
+                        <Width>20</Width>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>Name</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>
+                                    if ($_.State.Status -eq 'running') {
+                                        "$([char]0x1B)[38;5;78m$($_.State.Status)"
+                                    } elseif ($_.State.Status -eq 'exited') {
+                                        "$([char]0x1B)[38;5;9m$($_.State.Status)"
+                                    } elseif ($_.State.Status -eq 'restarting') {
+                                        "$([char]0x1B)[38;5;228m$($_.State.Status)"
+                                    } else {
+                                        "$($_.State.Status)"
+                                    }
+                                </ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>$_.Config.Image</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <ScriptBlock>if ($_.State.Running) {((Get-Date) - ([datetime]($_.State.StartedAt))).ToString('dd\.hh\:mm\:ss')} else {""}</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>Platform</PropertyName>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

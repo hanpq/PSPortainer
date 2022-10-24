@@ -30,13 +30,16 @@ function Get-PContainer
     )
 
     # Resolve Endpoint
-    if ($null -eq $Endpoint)
+    if ([string]::IsNullOrEmpty($Endpoint))
     {
+        Write-Debug 'GetPContainer; No Endpoint specified as parameter'
         if ($null -ne $script:PortainerSession)
         {
+            Write-Debug 'GetPContainer; PortainerSession found in script scope'
             if ($script:PortainerSession.DefaultDockerEndpoint)
             {
                 $Endpoint = $script:PortainerSession.DefaultDockerEndpoint
+                Write-Debug "GetPContainer; DefaultDockerEndpoint is defined: $Endpoint"
             }
             else
             {
@@ -56,11 +59,16 @@ function Get-PContainer
         {
             'list'
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session -Body @{all = $true } | ForEach-Object {
+                    Get-PContainer -Id $PSItem.Id | ForEach-Object {
+                        $PSItem.PSobject.TypeNames.Insert(0, 'PSPortainer.Container')
+                        $_
+                    }
+                }
             }
             'id'
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$Id/json" -PortainerSession:$Session
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$Id/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PSPortainer.Container'); $_ }
             }
         }
     }
