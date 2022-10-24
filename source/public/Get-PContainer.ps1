@@ -2,14 +2,14 @@
 {
   "VERSION": "1.0.0",
   "GUID": "995b4fdc-f68c-41a3-b9d3-73219c3086e3",
-  "FILENAME": "Get-PortainerContainer.ps1",
+  "FILENAME": "Get-PContainer.ps1",
   "AUTHOR": "Hannes Palmquist",
   "CREATEDDATE": "2022-10-23",
-  "COMPANYNAME": [],
+  "COMPANYNAME": "GetPS",
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-function Get-PortainerContainer
+function Get-PContainer
 {
     <#
     .DESCRIPTION
@@ -17,7 +17,7 @@ function Get-PortainerContainer
     .PARAMETER Name
         Description
     .EXAMPLE
-        Get-PortainerContainer
+        Get-PContainer
         Description of example
     #>
 

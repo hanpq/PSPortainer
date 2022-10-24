@@ -5,11 +5,11 @@
   "FILENAME": "Get-PortainerSession.ps1",
   "AUTHOR": "Hannes Palmquist",
   "CREATEDDATE": "2022-10-24",
-  "COMPANYNAME": [],
+  "COMPANYNAME": "GetPS",
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-function Get-PortainerSession
+function Get-PSession
 {
     <#
     .DESCRIPTION
@@ -17,7 +17,7 @@ function Get-PortainerSession
     .PARAMETER Name
         Description
     .EXAMPLE
-        Get-PortainerSession
+        Get-PSession
         Description of example
     #>
 
@@ -27,7 +27,7 @@ function Get-PortainerSession
 
     if ($script:PortainerSession)
     {
-        Write-Debug -Message 'Get-PortainerSession; PortainerSession found in script scope'
+        Write-Debug -Message 'Get-PSession; PortainerSession found in script scope'
         return $script:PortainerSession
     }
     else
