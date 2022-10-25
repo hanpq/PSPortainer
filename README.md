@@ -6,7 +6,7 @@ This project has adopted [this code of conduct](CODE_OF_CONDUCT.md).
 
 ### Pester
 
-[![Core Win](https://github.com/hanpq/PSPortainer/actions/workflows/pester_core_windows.yml/badge.svg)](https://github.com/hanpq/PSPortainer/actions/workflows/pester_core_windows.yml)
+[![Core Win](https://github.com/hanpq/PSPortainer/actions/workflows/pester_core_windows_codecov.yml/badge.svg)](https://github.com/hanpq/PSPortainer/actions/workflows/pester_core_windows_codecov.yml)
 [![Core Mac](https://github.com/hanpq/PSPortainer/actions/workflows/pester_core_macos.yml/badge.svg)](https://github.com/hanpq/PSPortainer/actions/workflows/pester_core_macos.yml)
 [![Core Lin](https://github.com/hanpq/PSPortainer/actions/workflows/pester_core_linux.yml/badge.svg)](https://github.com/hanpq/PSPortainer/actions/workflows/pester_core_linux.yml)
 
