@@ -509,7 +509,7 @@ Describe -Name 'Foreach script file' -Tag 'Module' -Fixture {
 Describe -Name 'Setting files' -Tag 'Module' -Fixture {
     Context 'Importing setting files' {
 
-        $ModuleSourceRootPath = Resolve-Path -Path ('{0}\..\..\Source' -f $PSScriptRoot)
+        $ModuleSourceRootPath = Resolve-Path -Path ('{0}\..\..\source' -f $PSScriptRoot)
         $ConfigsToTest = Get-ChildItem -Path (Join-Path -Path $ModuleSourceRootPath -ChildPath 'settings') -File -Recurse
 
         $TestCases = $ConfigsToTest | ForEach-Object {
@@ -537,7 +537,7 @@ Describe -Name 'Setting files' -Tag 'Module' -Fixture {
 
 Describe -Name 'Nested modules' -Tag 'Module' -Fixture {
     Context -Name 'Importing modules' -Fixture {
-        $ModuleSourceRootPath = Resolve-Path -Path ('{0}\..\..\Source' -f $PSScriptRoot)
+        $ModuleSourceRootPath = Resolve-Path -Path ('{0}\..\..\source' -f $PSScriptRoot)
         $ModulesToTest = Get-ChildItem -Path (Join-Path -Path $ModuleSourceRootPath -ChildPath 'include') -Directory
         $TestCases = $ModulesToTest | ForEach-Object {
             [hashtable]@{ModuleName = $PSItem.Name; Module = $PSItem }
