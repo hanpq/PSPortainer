@@ -459,7 +459,7 @@ Describe -Name 'Foreach script file' -Tag 'Module' -Fixture {
         $MatchedLegacyCodeSnippets | Should -Be $null
     }
 
-    It -Name 'End Of Line Type: <FileName>' -Skip { $IsMacOS -eq $true } -TestCases $TestCases -Test {
+    It -Name 'End Of Line Type: <FileName>' -Skip:($IsMacOS -eq $true) -TestCases $TestCases -Test {
         $Result = Test-FileEndOfLine -RawCode $CodeRaw
         ($Result -eq 'Windows' -or $Result -eq 'None') | Should -BeTrue
     }
