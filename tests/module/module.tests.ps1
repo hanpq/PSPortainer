@@ -342,7 +342,7 @@ Describe -Name 'Module content' -Tag 'Module' -Fixture {
 
     Context -Name 'Mandatory Files' -Fixture {
         # Define test cases
-        $ModuleSourceRootPath = Resolve-Path -Path ('{0}\..\..\Source' -f $PSScriptRoot)
+        $ModuleSourceRootPath = Resolve-Path -Path ('{0}\..\..\source' -f $PSScriptRoot)
         $ModuleName = (Get-Item -Path $ModuleSourceRootPath).Parent.BaseName
         $TestCases = @(
             @{File = ('\{0}.psd1' -f $ModuleName) }
@@ -371,8 +371,8 @@ Describe -Name 'Module content' -Tag 'Module' -Fixture {
 Describe -Name 'Foreach script file' -Tag 'Module' -Fixture {
 
     # Define testcases
-    $ModuleSourceRootPath = Resolve-Path -Path ('{0}\..\..\Source' -f $PSScriptRoot)
-    $ScriptFilesToAnalyze = Get-ChildItem -Path $ModuleSourceRootPath -Recurse -File -Include '*.ps1', '*.psm1' | Where-Object { $PSItem.Directory.Name -eq 'Source' -or $PSItem.Directory.FullName -like '*\source\public*' -or $PSItem.Directory.FullName -like '*\source\private*' }
+    $ModuleSourceRootPath = Resolve-Path -Path ('{0}\..\..\source' -f $PSScriptRoot)
+    $ScriptFilesToAnalyze = Get-ChildItem -Path $ModuleSourceRootPath -Recurse -File -Include '*.ps1', '*.psm1' | Where-Object { $PSItem.Directory.Name -eq 'source' -or $PSItem.Directory.FullName -like '*\source\public*' -or $PSItem.Directory.FullName -like '*\source\private*' }
     $TestCases = $ScriptFilesToAnalyze | ForEach-Object {
         [hashtable]@{
             FileName  = $PSItem.Name
