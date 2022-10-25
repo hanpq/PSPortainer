@@ -39,7 +39,7 @@ jobs:
           Install-Module -Name Encoding -RequiredVersion 0.0.0.1 -confirm:$false -force
           Import-Module -Name Encoding
           $PesterConfiguration = [PesterConfiguration]::Default
-          $PesterConfiguration.Run.Path = "Tests/Module"
+          $PesterConfiguration.Run.Path = "tests/module"
           $PesterConfiguration.Run.Exit = $true
           $PesterConfiguration.Output.Verbosity = "Detailed"
           Invoke-Pester -Configuration $PesterConfiguration
