@@ -406,6 +406,14 @@ Describe -Name 'Foreach script file' -Tag 'Module' -Fixture {
     }
 
     It -Name 'Encoding: <FileName>' -TestCases $TestCases -Test {
+
+        # Workaround, apperently the module encoding and subsequently the command Test-Encoding uses aliases for Sort-Object and Select-Object, these aliases are not available on linux and mac by default and the test fails on Linux and Mac. To mitigate this until the Encoding Module is patched, aliases for these are added.
+        if ($IsMacOS -or $IsLinux)
+        {
+            New-Alias -Name 'Sort' -Value 'Sort-Object' -Scope Global
+            New-Alias -Name 'Select' -Value 'Select-Object' -Scope Global
+        }
+
         Test-Encoding -Path $File.FullName | Should -Be $true
     }
 
