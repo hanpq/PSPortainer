@@ -356,6 +356,7 @@ Describe -Name 'Module content' -Tag 'Module' -Fixture {
     }
 
     Context -Name 'Module Manifest' -Fixture {
+        # Document why this is excluded from GitHub actions?
         It -Name 'Test-ModuleManifest' -Skip:($env:GITHUB_ACTIONS -eq $true) -Test {
             { Test-ModuleManifest -Path (Join-Path -Path $ModuleSourceRootPath -ChildPath ('\{0}.psd1' -f $ModuleName)) } | Should -Not -Throw
         }
@@ -458,7 +459,7 @@ Describe -Name 'Foreach script file' -Tag 'Module' -Fixture {
         $MatchedLegacyCodeSnippets | Should -Be $null
     }
 
-    It -Name 'End Of Line Type: <FileName>' -TestCases $TestCases -Test {
+    It -Name 'End Of Line Type: <FileName>' -Skip { $IsMacOS -eq $true } -TestCases $TestCases -Test {
         $Result = Test-FileEndOfLine -RawCode $CodeRaw
         ($Result -eq 'Windows' -or $Result -eq 'None') | Should -BeTrue
     }
