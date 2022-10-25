@@ -1,20 +1,19 @@
 ﻿<#PSScriptInfo
 {
   "VERSION": "1.0.0",
-  "GUID": "995b4fdc-f68c-41a3-b9d3-73219c3086e3",
-  "FILENAME": "Get-PContainer.ps1",
+  "GUID": "8e1ee3eb-e9b1-459e-a631-a9c9d1be4ce6",
+  "FILENAME": "Get-PContainerProcess.ps1",
   "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-23",
-  "COMPANYNAME": "GetPS",
+  "CREATEDDATE": "2022-10-25",
+  "COMPANYNAME": [],
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-
-function Get-PContainer
+function Get-PContainerProcess
 {
     <#
     .DESCRIPTION
-        Retreives docker containers
+        Get processes running inside the container
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -32,27 +31,15 @@ function Get-PContainer
 
         -Session $Session
     .EXAMPLE
-        Get-PContainer
+        Get-PContainer -Id '<id>' | Get-PContainerProcess
 
-        Retreives all containers from the endpoint configured on the portainer session default docker endpoint setting.
-    .EXAMPLE
-        Get-PContainer -Id '<id>'
-
-        Retreives a single container object with the specified Id
-    .EXAMPLE
-        Get-PContainer -Endpoint 'prod'
-
-        Retreives all containers on the prod endpoint
-    .EXAMPLE
-        Get-PContainer -Session $Session
-
-        Retreives all containers on the portainer instance defined
+        Retreives the running processes in the specified container
     #>
 
-    [CmdletBinding(DefaultParameterSetName = 'list')]
+    [CmdletBinding()] # Enabled advanced function support
     param(
         [Parameter()][string]$Endpoint,
-        [Parameter(ParameterSetName = 'id', ValueFromPipeline)][object[]]$Id,
+        [Parameter(ValueFromPipeline)][object[]]$Id,
         [Parameter()][PortainerSession]$Session = $null
     )
 
@@ -82,14 +69,7 @@ function Get-PContainer
         }
         $EndpointId = Get-PEndpoint -SearchString $Endpoint | Select-Object -ExpandProperty Id
 
-        if ($EndpointId)
-        {
-            if ($PSCmdlet.ParameterSetName -eq 'list')
-            {
-                [array]$Id = InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session -Body @{all = $true } | Select-Object -ExpandProperty Id
-            }
-        }
-        else
+        if (-not $EndpointId)
         {
             Write-Warning -Message 'No endpoint found'
             break
@@ -101,11 +81,11 @@ function Get-PContainer
         $Id | ForEach-Object {
             if ($PSItem.PSObject.TypeNames -contains 'PortainerContainer' -and $PSItem.GetType().Name -eq 'PSCustomObject')
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$($PSItem.Id)/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PortainerContainer'); $_ }
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$($PSItem.Id)/top" -PortainerSession:$Session | Select-Object -expand processes | ForEach-Object { [PortainerContainerProcess]::New($PSItem) }
             }
             elseif ($PSItem.GetType().Name -eq 'string')
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$PSItem/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PortainerContainer'); $_ }
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$PSItem/top" -PortainerSession:$Session | Select-Object -expand processes | ForEach-Object { [PortainerContainerProcess]::New($PSItem) }
             }
             else
             {
@@ -114,3 +94,6 @@ function Get-PContainer
         }
     }
 }
+#endregion
+
+

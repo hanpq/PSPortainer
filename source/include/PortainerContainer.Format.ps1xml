@@ -2,9 +2,9 @@
 <Configuration>
     <ViewDefinitions>
         <View>
-            <Name>PSPortainer.Container</Name>
+            <Name>PortainerContainer</Name>
             <ViewSelectedBy>
-                <TypeName>PSPortainer.Container</TypeName>
+                <TypeName>PortainerContainer</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <TableHeaders>
