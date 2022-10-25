@@ -10,7 +10,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Powershell Module for interaction with Portainer API</maml:para>
+      <maml:para>Connect to a Portainer instance</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -18,7 +18,8 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>BaseURL</maml:name>
           <maml:description>
-            <maml:para>{{ Fill BaseURL Description }}</maml:para>
+            <maml:para>Defines the base URL to the portainer instance</maml:para>
+            <maml:para>-BaseURL 'https://portainer.contoso.com'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -30,7 +31,8 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>AccessToken</maml:name>
           <maml:description>
-            <maml:para>{{ Fill AccessToken Description }}</maml:para>
+            <maml:para>Connects to portainer using a access token. This AccessToken can be generated from the Portainer Web GUI.</maml:para>
+            <maml:para>-AccessToken 'ptr_ABoR54bB1NUc4aNY0F2PhppP1tVDu2Husr3vEbPUsw5'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -42,7 +44,8 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PassThru</maml:name>
           <maml:description>
-            <maml:para>{{ Fill PassThru Description }}</maml:para>
+            <maml:para>This parameter will cause the function to return a PortainerSession object that can be stored in a variable and referensed with the -Session parameter on most cmdlets.</maml:para>
+            <maml:para>-PassThru</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -56,7 +59,8 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>BaseURL</maml:name>
           <maml:description>
-            <maml:para>{{ Fill BaseURL Description }}</maml:para>
+            <maml:para>Defines the base URL to the portainer instance</maml:para>
+            <maml:para>-BaseURL 'https://portainer.contoso.com'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -68,7 +72,8 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Credential Description }}</maml:para>
+            <maml:para>Connect to portainer using username and password. Parameter accepts a PSCredentials object</maml:para>
+            <maml:para>-Credential (Get-Credential)</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -80,7 +85,8 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PassThru</maml:name>
           <maml:description>
-            <maml:para>{{ Fill PassThru Description }}</maml:para>
+            <maml:para>This parameter will cause the function to return a PortainerSession object that can be stored in a variable and referensed with the -Session parameter on most cmdlets.</maml:para>
+            <maml:para>-PassThru</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -94,7 +100,8 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>BaseURL</maml:name>
         <maml:description>
-          <maml:para>{{ Fill BaseURL Description }}</maml:para>
+          <maml:para>Defines the base URL to the portainer instance</maml:para>
+          <maml:para>-BaseURL 'https://portainer.contoso.com'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -106,7 +113,8 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>AccessToken</maml:name>
         <maml:description>
-          <maml:para>{{ Fill AccessToken Description }}</maml:para>
+          <maml:para>Connects to portainer using a access token. This AccessToken can be generated from the Portainer Web GUI.</maml:para>
+          <maml:para>-AccessToken 'ptr_ABoR54bB1NUc4aNY0F2PhppP1tVDu2Husr3vEbPUsw5'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -118,7 +126,8 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Credential Description }}</maml:para>
+          <maml:para>Connect to portainer using username and password. Parameter accepts a PSCredentials object</maml:para>
+          <maml:para>-Credential (Get-Credential)</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -130,7 +139,8 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>PassThru</maml:name>
         <maml:description>
-          <maml:para>{{ Fill PassThru Description }}</maml:para>
+          <maml:para>This parameter will cause the function to return a PortainerSession object that can be stored in a variable and referensed with the -Session parameter on most cmdlets.</maml:para>
+          <maml:para>-PassThru</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -150,10 +160,16 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Connect-Portainer
-Description of example</dev:code>
+        <dev:code>Connect-Portainer -BaseURL 'https://portainer.contoso.com' -AccessToken 'ptr_ABoR54bB1NUc4aNY0F2PhppP1tVDu2Husr3vEbPUsw5='</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Connect using access token</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Connect-Portainer -BaseURL 'https://portainer.contoso.com' -Credentials (Get-Credential)</dev:code>
+        <dev:remarks>
+          <maml:para>Connect using username and password</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -169,7 +185,7 @@ Description of example</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>.</maml:para>
+      <maml:para>Disconnect and cleanup session configuration</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -177,7 +193,7 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Session</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Session Description }}</maml:para>
+            <maml:para>Defines a PortainerSession object that will be disconnected and cleaned up.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
           <dev:type>
@@ -192,7 +208,7 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Session</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Session Description }}</maml:para>
+          <maml:para>Defines a PortainerSession object that will be disconnected and cleaned up.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
         <dev:type>
@@ -212,10 +228,16 @@ Description of example</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Disconnect-Portainer
-Description of example</dev:code>
+        <dev:code>Disconnect-Portainer</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Disconnect from the default portainer session</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Disconnect-Portainer -Session $Session</dev:code>
+        <dev:remarks>
+          <maml:para>Disconnect the specified session</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -231,7 +253,7 @@ Description of example</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Retreives containers</maml:para>
+      <maml:para>Retreives docker containers</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -239,7 +261,10 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Endpoint</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Endpoint Description }}</maml:para>
+            <maml:para>Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.</maml:para>
+            <maml:para>Use Get-PSession to see what endpoint is selected</maml:para>
+            <maml:para>Use Select-PEndpoint to change the default docker endpoint in the portainer session.</maml:para>
+            <maml:para>-Endpoint 'local'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -248,14 +273,15 @@ Description of example</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>Id</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Id Description }}</maml:para>
+            <maml:para>Defines the id of the container to retreive.</maml:para>
+            <maml:para>-Id '&lt;Id&gt;'</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>Object[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -263,7 +289,8 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Session</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Session Description }}</maml:para>
+            <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+            <maml:para>-Session $Session</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
           <dev:type>
@@ -278,7 +305,10 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Endpoint</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Endpoint Description }}</maml:para>
+          <maml:para>Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.</maml:para>
+          <maml:para>Use Get-PSession to see what endpoint is selected</maml:para>
+          <maml:para>Use Select-PEndpoint to change the default docker endpoint in the portainer session.</maml:para>
+          <maml:para>-Endpoint 'local'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -287,14 +317,15 @@ Description of example</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>Id</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Id Description }}</maml:para>
+          <maml:para>Defines the id of the container to retreive.</maml:para>
+          <maml:para>-Id '&lt;Id&gt;'</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>Object[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -302,7 +333,8 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Session</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Session Description }}</maml:para>
+          <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+          <maml:para>-Session $Session</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
         <dev:type>
@@ -322,10 +354,149 @@ Description of example</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-PContainer
-Description of example</dev:code>
+        <dev:code>Get-PContainer</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Retreives all containers from the endpoint configured on the portainer session default docker endpoint setting.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>'</dev:code>
+        <dev:remarks>
+          <maml:para>Retreives a single container object with the specified Id</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-PContainer -Endpoint 'prod'</dev:code>
+        <dev:remarks>
+          <maml:para>Retreives all containers on the prod endpoint</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>Get-PContainer -Session $Session</dev:code>
+        <dev:remarks>
+          <maml:para>Retreives all containers on the portainer instance defined</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-PContainerProcess</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PContainerProcess</command:noun>
+      <maml:description>
+        <maml:para></maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get processes running inside the container</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PContainerProcess</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Endpoint</maml:name>
+          <maml:description>
+            <maml:para>Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.</maml:para>
+            <maml:para>Use Get-PSession to see what endpoint is selected</maml:para>
+            <maml:para>Use Select-PEndpoint to change the default docker endpoint in the portainer session.</maml:para>
+            <maml:para>-Endpoint 'local'</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="2" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:description>
+            <maml:para>Defines the id of the container to retreive.</maml:para>
+            <maml:para>-Id '&lt;Id&gt;'</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+          <dev:type>
+            <maml:name>Object[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:description>
+            <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+            <maml:para>-Session $Session</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PortainerSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Endpoint</maml:name>
+        <maml:description>
+          <maml:para>Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.</maml:para>
+          <maml:para>Use Get-PSession to see what endpoint is selected</maml:para>
+          <maml:para>Use Select-PEndpoint to change the default docker endpoint in the portainer session.</maml:para>
+          <maml:para>-Endpoint 'local'</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="2" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:description>
+          <maml:para>Defines the id of the container to retreive.</maml:para>
+          <maml:para>-Id '&lt;Id&gt;'</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+        <dev:type>
+          <maml:name>Object[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Session</maml:name>
+        <maml:description>
+          <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+          <maml:para>-Session $Session</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
+        <dev:type>
+          <maml:name>PortainerSession</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>' | Get-PContainerProcess</dev:code>
+        <dev:remarks>
+          <maml:para>Retreives the running processes in the specified container</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -341,7 +512,7 @@ Description of example</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Retreive endpoints</maml:para>
+      <maml:para>Retreives endpoints</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -349,7 +520,7 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>SearchString</maml:name>
           <maml:description>
-            <maml:para>{{ Fill SearchString Description }}</maml:para>
+            <maml:para>Defines a searchstring to use for filtering endpoints</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -361,7 +532,8 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Session</maml:name>
           <maml:description>
-            <maml:para>Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned... [Parameter(ParameterSetName = 'Name')][string]$Name</maml:para>
+            <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+            <maml:para>-Session $Session</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
           <dev:type>
@@ -376,7 +548,7 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Id</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Id Description }}</maml:para>
+            <maml:para>Defines the Id of the endpoint to retreive.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -388,7 +560,8 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Session</maml:name>
           <maml:description>
-            <maml:para>Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned... [Parameter(ParameterSetName = 'Name')][string]$Name</maml:para>
+            <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+            <maml:para>-Session $Session</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
           <dev:type>
@@ -403,7 +576,7 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>SearchString</maml:name>
         <maml:description>
-          <maml:para>{{ Fill SearchString Description }}</maml:para>
+          <maml:para>Defines a searchstring to use for filtering endpoints</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -415,7 +588,7 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Id</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Id Description }}</maml:para>
+          <maml:para>Defines the Id of the endpoint to retreive.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -427,7 +600,8 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Session</maml:name>
         <maml:description>
-          <maml:para>Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned... [Parameter(ParameterSetName = 'Name')][string]$Name</maml:para>
+          <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+          <maml:para>-Session $Session</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
         <dev:type>
@@ -447,10 +621,9 @@ Description of example</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-PEndpoint
-Description of example</dev:code>
+        <dev:code>Get-PEndpoint -SearchString 'local'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Retreives all endpoints containing the word local</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -612,7 +785,7 @@ Description of example</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>.</maml:para>
+      <maml:para>Displays the Portainer Session object.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -657,7 +830,8 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Session</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Session Description }}</maml:para>
+            <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+            <maml:para>-Session $Session</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
           <dev:type>
@@ -672,7 +846,8 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Session</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Session Description }}</maml:para>
+          <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+          <maml:para>-Session $Session</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
         <dev:type>
@@ -718,7 +893,8 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Session</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Session Description }}</maml:para>
+            <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+            <maml:para>-Session $Session</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
           <dev:type>
@@ -733,7 +909,8 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Session</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Session Description }}</maml:para>
+          <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+          <maml:para>-Session $Session</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
         <dev:type>
@@ -771,7 +948,7 @@ Description of example</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>.</maml:para>
+      <maml:para>Configures the default endpoint to use</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -779,7 +956,7 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Endpoint</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Endpoint Description }}</maml:para>
+            <maml:para>Defines the endpoint name to select</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -791,7 +968,8 @@ Description of example</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>Session</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Session Description }}</maml:para>
+            <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+            <maml:para>-Session $Session</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
           <dev:type>
@@ -806,7 +984,7 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Endpoint</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Endpoint Description }}</maml:para>
+          <maml:para>Defines the endpoint name to select</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -818,7 +996,8 @@ Description of example</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>Session</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Session Description }}</maml:para>
+          <maml:para>Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.</maml:para>
+          <maml:para>-Session $Session</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PortainerSession</command:parameterValue>
         <dev:type>
@@ -838,10 +1017,9 @@ Description of example</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Select-PEndpoint
-Description of example</dev:code>
+        <dev:code>Select-PEndpoint -Endpoint 'prod'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Set the default endpoint to use</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

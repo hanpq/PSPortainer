@@ -30,7 +30,10 @@ Retreives Portainer Public Settings
 ## PARAMETERS
 
 ### -Session
-{{ Fill Session Description }}
+Optionally define a portainer session object to use.
+This is useful when you are connected to more than one portainer instance.
+
+-Session $Session
 
 ```yaml
 Type: PortainerSession

@@ -22,20 +22,30 @@ Connect-Portainer -BaseURL <String> [-Credential <PSCredential>] [-PassThru] [<C
 ```
 
 ## DESCRIPTION
-Powershell Module for interaction with Portainer API
+Connect to a Portainer instance
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Connect-Portainer
-Description of example
+Connect-Portainer -BaseURL 'https://portainer.contoso.com' -AccessToken 'ptr_ABoR54bB1NUc4aNY0F2PhppP1tVDu2Husr3vEbPUsw5='
 ```
+
+Connect using access token
+
+### EXAMPLE 2
+```
+Connect-Portainer -BaseURL 'https://portainer.contoso.com' -Credentials (Get-Credential)
+```
+
+Connect using username and password
 
 ## PARAMETERS
 
 ### -BaseURL
-{{ Fill BaseURL Description }}
+Defines the base URL to the portainer instance
+
+-BaseURL 'https://portainer.contoso.com'
 
 ```yaml
 Type: String
@@ -50,7 +60,10 @@ Accept wildcard characters: False
 ```
 
 ### -AccessToken
-{{ Fill AccessToken Description }}
+Connects to portainer using a access token.
+This AccessToken can be generated from the Portainer Web GUI.
+
+-AccessToken 'ptr_ABoR54bB1NUc4aNY0F2PhppP1tVDu2Husr3vEbPUsw5'
 
 ```yaml
 Type: String
@@ -65,7 +78,10 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{ Fill Credential Description }}
+Connect to portainer using username and password.
+Parameter accepts a PSCredentials object
+
+-Credential (Get-Credential)
 
 ```yaml
 Type: PSCredential
@@ -80,7 +96,9 @@ Accept wildcard characters: False
 ```
 
 ### -PassThru
-{{ Fill PassThru Description }}
+This parameter will cause the function to return a PortainerSession object that can be stored in a variable and referensed with the -Session parameter on most cmdlets.
+
+-PassThru
 
 ```yaml
 Type: SwitchParameter

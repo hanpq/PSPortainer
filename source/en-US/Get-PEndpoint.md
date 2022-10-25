@@ -27,20 +27,21 @@ Get-PEndpoint [-Id <Int32>] [-Session <PortainerSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retreive endpoints
+Retreives endpoints
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-PEndpoint
-Description of example
+Get-PEndpoint -SearchString 'local'
 ```
+
+Retreives all endpoints containing the word local
 
 ## PARAMETERS
 
 ### -SearchString
-{{ Fill SearchString Description }}
+Defines a searchstring to use for filtering endpoints
 
 ```yaml
 Type: String
@@ -55,7 +56,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{ Fill Id Description }}
+Defines the Id of the endpoint to retreive.
 
 ```yaml
 Type: Int32
@@ -70,8 +71,10 @@ Accept wildcard characters: False
 ```
 
 ### -Session
-Does not work for some reason, regardless of input to the API parameter name, all endpoints are returned...
-\[Parameter(ParameterSetName = 'Name')\]\[string\]$Name
+Optionally define a portainer session object to use.
+This is useful when you are connected to more than one portainer instance.
+
+-Session $Session
 
 ```yaml
 Type: PortainerSession

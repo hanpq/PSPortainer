@@ -5,54 +5,28 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-PContainer
+# Get-PContainerProcess
 
 ## SYNOPSIS
 
 ## SYNTAX
 
-### list (Default)
 ```
-Get-PContainer [-Endpoint <String>] [-Session <PortainerSession>] [<CommonParameters>]
-```
-
-### id
-```
-Get-PContainer [-Endpoint <String>] [-Id <Object[]>] [-Session <PortainerSession>] [<CommonParameters>]
+Get-PContainerProcess [[-Endpoint] <String>] [[-Id] <Object[]>] [[-Session] <PortainerSession>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retreives docker containers
+Get processes running inside the container
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-PContainer
+' | Get-PContainerProcess
 ```
 
-Retreives all containers from the endpoint configured on the portainer session default docker endpoint setting.
-
-### EXAMPLE 2
-```
-'
-```
-
-Retreives a single container object with the specified Id
-
-### EXAMPLE 3
-```
-Get-PContainer -Endpoint 'prod'
-```
-
-Retreives all containers on the prod endpoint
-
-### EXAMPLE 4
-```
-Get-PContainer -Session $Session
-```
-
-Retreives all containers on the portainer instance defined
+Retreives the running processes in the specified container
 
 ## PARAMETERS
 
@@ -72,7 +46,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -85,11 +59,11 @@ Defines the id of the container to retreive.
 
 ```yaml
 Type: Object[]
-Parameter Sets: id
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
@@ -107,7 +81,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

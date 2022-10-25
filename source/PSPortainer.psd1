@@ -1,6 +1,6 @@
-﻿@{
+@{
   RootModule = 'PSPortainer.psm1'
-  ModuleVersion = '0.0.10'
+  ModuleVersion = '0.0.11'
   CompatiblePSEditions = @('Core')
   GUID = 'a81b1e93-5997-4aeb-b491-524b7a309862'
   Author = 'Hannes Palmquist'

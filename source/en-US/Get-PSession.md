@@ -16,7 +16,7 @@ Get-PSession [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-.
+Displays the Portainer Session object.
 
 ## EXAMPLES
 

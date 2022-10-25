@@ -97,6 +97,16 @@
           "Message": "Fixed module manifest tagging to deprecate support for Windows Powershell"
         }
       ]
+    },
+    {
+      "Version": "0.0.11",
+      "Date": "2022-10-26",
+      "Items": [
+        {
+          "Type": "added",
+          "Message": "Added Get-PContainerProcess"
+        }
+      ]
     }
   ]
 }

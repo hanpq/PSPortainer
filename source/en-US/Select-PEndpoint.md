@@ -16,20 +16,21 @@ Select-PEndpoint [[-Endpoint] <String>] [[-Session] <PortainerSession>] [<Common
 ```
 
 ## DESCRIPTION
-.
+Configures the default endpoint to use
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Select-PEndpoint
-Description of example
+Select-PEndpoint -Endpoint 'prod'
 ```
+
+Set the default endpoint to use
 
 ## PARAMETERS
 
 ### -Endpoint
-{{ Fill Endpoint Description }}
+Defines the endpoint name to select
 
 ```yaml
 Type: String
@@ -44,7 +45,10 @@ Accept wildcard characters: False
 ```
 
 ### -Session
-{{ Fill Session Description }}
+Optionally define a portainer session object to use.
+This is useful when you are connected to more than one portainer instance.
+
+-Session $Session
 
 ```yaml
 Type: PortainerSession

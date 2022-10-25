@@ -16,20 +16,28 @@ Disconnect-Portainer [[-Session] <PortainerSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-.
+Disconnect and cleanup session configuration
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
 Disconnect-Portainer
-Description of example
 ```
+
+Disconnect from the default portainer session
+
+### EXAMPLE 2
+```
+Disconnect-Portainer -Session $Session
+```
+
+Disconnect the specified session
 
 ## PARAMETERS
 
 ### -Session
-{{ Fill Session Description }}
+Defines a PortainerSession object that will be disconnected and cleaned up.
 
 ```yaml
 Type: PortainerSession
