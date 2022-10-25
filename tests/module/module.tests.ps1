@@ -384,7 +384,7 @@ Describe -Name 'Foreach script file' -Tag 'Module' -Fixture {
     $FunctionTestCases = $TestCases | Where-Object { $PSItem.File.Name -like '*-*.ps1' -and $PSItem.File.Name -notlike '*.Tests.*' }
 
     It -Name 'Script Analyzer: <FileName>' -TestCases $TestCases -Test {
-        $ModuleTestsAnalyzerSettingsPath = Join-Path -Path $PSScriptRoot -ChildPath 'Module.Tests.AnalyzerSettings.psd1'
+        $ModuleTestsAnalyzerSettingsPath = Join-Path -Path $PSScriptRoot -ChildPath 'module.tests.analyzersettings.psd1'
         $Result = Invoke-ScriptAnalyzer -Path $File.FullName -Settings $ModuleTestsAnalyzerSettingsPath
         if ($Result)
         {
