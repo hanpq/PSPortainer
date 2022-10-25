@@ -14,68 +14,102 @@ function Get-PContainer
 {
     <#
     .DESCRIPTION
-        Retreives containers
-    .PARAMETER Name
-        Description
+        Retreives docker containers
+    .PARAMETER Endpoint
+        Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
+
+        Use Get-PSession to see what endpoint is selected
+
+        Use Select-PEndpoint to change the default docker endpoint in the portainer session.
+
+        -Endpoint 'local'
+    .PARAMETER Id
+        Defines the id of the container to retreive.
+
+        -Id '<Id>'
+    .PARAMETER Session
+        Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.
+
+        -Session $Session
     .EXAMPLE
         Get-PContainer
-        Description of example
+
+        Retreives all containers from the endpoint configured on the portainer session default docker endpoint setting.
+    .EXAMPLE
+        Get-PContainer -Id '<id>'
+
+        Retreives a single container object with the specified Id
+    .EXAMPLE
+        Get-PContainer -Endpoint 'prod'
+
+        Retreives all containers on the prod endpoint
+    .EXAMPLE
+        Get-PContainer -Session $Session
+
+        Retreives all containers on the portainer instance defined
     #>
 
     [CmdletBinding(DefaultParameterSetName = 'list')]
     param(
         [Parameter()][string]$Endpoint,
-        [Parameter(ParameterSetName = 'id')][string]$Id,
+        [Parameter(ParameterSetName = 'id', ValueFromPipeline)][object[]]$Id,
         [Parameter()][PortainerSession]$Session = $null
     )
 
-    # Resolve Endpoint
-    if ([string]::IsNullOrEmpty($Endpoint))
+    BEGIN
     {
-        Write-Debug 'GetPContainer; No Endpoint specified as parameter'
-        if ($null -ne $script:PortainerSession)
+        # Resolve Endpoint
+        if ([string]::IsNullOrEmpty($Endpoint))
         {
-            Write-Debug 'GetPContainer; PortainerSession found in script scope'
-            if ($script:PortainerSession.DefaultDockerEndpoint)
+            Write-Debug 'GetPContainer; No Endpoint specified as parameter'
+            if ($null -ne $script:PortainerSession)
             {
-                $Endpoint = $script:PortainerSession.DefaultDockerEndpoint
-                Write-Debug "GetPContainer; DefaultDockerEndpoint is defined: $Endpoint"
+                Write-Debug 'GetPContainer; PortainerSession found in script scope'
+                if ($script:PortainerSession.DefaultDockerEndpoint)
+                {
+                    $Endpoint = $script:PortainerSession.DefaultDockerEndpoint
+                    Write-Debug "GetPContainer; DefaultDockerEndpoint is defined: $Endpoint"
+                }
+                else
+                {
+                    $Endpoint = Read-Host -Prompt 'EndpointId'
+                }
             }
             else
             {
                 $Endpoint = Read-Host -Prompt 'EndpointId'
             }
         }
+        $EndpointId = Get-PEndpoint -SearchString $Endpoint | Select-Object -ExpandProperty Id
+
+        if ($EndpointId)
+        {
+            if ($PSCmdlet.ParameterSetName -eq 'list')
+            {
+                [array]$Id = InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session -Body @{all = $true } | Select-Object -ExpandProperty Id
+            }
+        }
         else
         {
-            $Endpoint = Read-Host -Prompt 'EndpointId'
+            Write-Warning -Message 'No endpoint found'
         }
     }
-    $EndpointId = Get-PEndpoint -SearchString $Endpoint | Select-Object -ExpandProperty Id
 
-    if ($EndpointId)
+    PROCESS
     {
-        switch ($PSCmdlet.ParameterSetName)
-        {
-            'list'
+        $Id | ForEach-Object {
+            if ($PSItem.PSObject.TypeNames -contains 'PSPortainer.Container' -and $PSItem.GetType().Name -eq 'PSCustomObject')
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session -Body @{all = $true } | ForEach-Object {
-                    Get-PContainer -Id $PSItem.Id | ForEach-Object {
-                        $PSItem.PSobject.TypeNames.Insert(0, 'PSPortainer.Container')
-                        $_
-                    }
-                }
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$($PSItem.Id)/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PSPortainer.Container'); $_ }
             }
-            'id'
+            elseif ($PSItem.GetType().Name -eq 'string')
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$Id/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PSPortainer.Container'); $_ }
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$PSItem/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PSPortainer.Container'); $_ }
+            }
+            else
+            {
+                Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
         }
     }
-    else
-    {
-        Write-Warning -Message 'No endpoint found'
-    }
-
 }
-#endregion

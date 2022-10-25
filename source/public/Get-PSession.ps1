@@ -13,15 +13,13 @@ function Get-PSession
 {
     <#
     .DESCRIPTION
-        .
-    .PARAMETER Name
-        Description
+        Displays the Portainer Session object.
     .EXAMPLE
         Get-PSession
         Description of example
     #>
 
-    [CmdletBinding()] # Enabled advanced function support
+    [CmdletBinding()]
     param(
     )
 

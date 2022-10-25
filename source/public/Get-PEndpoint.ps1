@@ -13,12 +13,19 @@ function Get-PEndpoint
 {
     <#
     .DESCRIPTION
-        Retreive endpoints
-    .PARAMETER Name
-        Description
+        Retreives endpoints
+    .PARAMETER SearchString
+        Defines a searchstring to use for filtering endpoints
+    .PARAMETER Id
+        Defines the Id of the endpoint to retreive.
+    .PARAMETER Session
+        Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.
+
+        -Session $Session
     .EXAMPLE
-        Get-PEndpoint
-        Description of example
+        Get-PEndpoint -SearchString 'local'
+
+        Retreives all endpoints containing the word local
     #>
 
     [CmdletBinding(DefaultParameterSetName = 'List')]
