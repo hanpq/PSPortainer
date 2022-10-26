@@ -107,6 +107,16 @@
           "Message": "Added Get-PContainerProcess"
         }
       ]
+    },
+    {
+      "Version": "0.0.12",
+      "Date": "2022-10-26",
+      "Items": [
+        {
+          "Type": "fixed",
+          "Message": "Code refactor for Get-PContainer"
+        }
+      ]
     }
   ]
 }

@@ -15,7 +15,7 @@ class PortainerContainerProcess
     [int]$ProcessID
     [int]$ParentProcessID
     [int]$C
-    [timespan]$STIME
+    [string]$STIME
     [string]$Terminal
     [timespan]$TIME
     [string]$Command
@@ -26,7 +26,7 @@ class PortainerContainerProcess
         $this.ProcessID = $Object[1]
         $this.ParentProcessID = $Object[2]
         $this.C = $Object[3]
-        $this.STime = [timespan]::Parse($Object[4])
+        $this.STime = $Object[4]
         $this.Terminal = $Object[5]
         $this.Time = [timespan]::Parse($Object[6])
         $this.Command = $Object[7]

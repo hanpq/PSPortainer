@@ -94,6 +94,4 @@ function Get-PContainerProcess
         }
     }
 }
-#endregion
-
 

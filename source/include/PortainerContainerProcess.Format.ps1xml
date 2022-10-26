@@ -18,11 +18,11 @@
                     </TableColumnHeader>
                     <TableColumnHeader>
                         <Label>STIME</Label>
-                        <Width>15</Width>
+                        <Width>10</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
                         <Label>TIME</Label>
-                        <Width>15</Width>
+                        <Width>10</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
                         <Label>Command</Label>

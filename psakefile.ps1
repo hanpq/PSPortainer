@@ -1,4 +1,15 @@
-﻿
+﻿<#
+Align
+
+Test
+Build
+Release
+
+
+#>
+
+
+
 # Helper functions
 function Write-CheckListItem
 {

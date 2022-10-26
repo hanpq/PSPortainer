@@ -234,7 +234,6 @@ BeforeAll {
             return $PSScriptInfo
         }
     }
-
     function Split-String
     {
         <#

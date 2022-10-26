@@ -58,29 +58,14 @@ function Get-PContainer
 
     BEGIN
     {
+        # Resolve the PortainerSession to use
+        $Session = Get-PSession -Session:$Session
+
         # Resolve Endpoint
-        if ([string]::IsNullOrEmpty($Endpoint))
-        {
-            Write-Debug 'GetPContainer; No Endpoint specified as parameter'
-            if ($null -ne $script:PortainerSession)
-            {
-                Write-Debug 'GetPContainer; PortainerSession found in script scope'
-                if ($script:PortainerSession.DefaultDockerEndpoint)
-                {
-                    $Endpoint = $script:PortainerSession.DefaultDockerEndpoint
-                    Write-Debug "GetPContainer; DefaultDockerEndpoint is defined: $Endpoint"
-                }
-                else
-                {
-                    $Endpoint = Read-Host -Prompt 'EndpointId'
-                }
-            }
-            else
-            {
-                $Endpoint = Read-Host -Prompt 'EndpointId'
-            }
-        }
-        $EndpointId = Get-PEndpoint -SearchString $Endpoint | Select-Object -ExpandProperty Id
+        $EndpointName = GetNonNullOrEmptyFromList -Array @($Endpoint, $Session.DefaultDockerEndpoint) -AskIfNoneIsFound -PropertyName 'EndpointName'
+        Write-Debug "GetPContainer; Endpoint $EndpointName select"
+
+        $EndpointId = Get-PEndpoint -SearchString $EndpointName | Select-Object -ExpandProperty Id
 
         if ($EndpointId)
         {
