@@ -117,6 +117,16 @@
           "Message": "Code refactor for Get-PContainer"
         }
       ]
+    },
+    {
+      "Version": "0.0.13",
+      "Date": "2022-10-28",
+      "Items": [
+        {
+          "Type": "added",
+          "Message": "Added Get-PContainerStatistics"
+        }
+      ]
     }
   ]
 }

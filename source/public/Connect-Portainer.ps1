@@ -68,5 +68,3 @@ function Connect-Portainer
         return $script:PortainerSession
     }
 }
-
-
