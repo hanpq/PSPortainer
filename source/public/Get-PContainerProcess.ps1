@@ -35,7 +35,7 @@ function Get-PContainerProcess
 
         Retreives the running processes in the specified container
     #>
-
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Session', Justification = 'False positive')]
     [CmdletBinding()] # Enabled advanced function support
     param(
         [Parameter()][string]$Endpoint,
@@ -79,18 +79,20 @@ function Get-PContainerProcess
     PROCESS
     {
         $Id | ForEach-Object {
-            if ($PSItem.PSObject.TypeNames -contains 'PortainerContainer' -and $PSItem.GetType().Name -eq 'PSCustomObject')
+            if ($PSItem.PSObject.TypeNames -contains 'PortainerContainer')
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$($PSItem.Id)/top" -PortainerSession:$Session | Select-Object -expand processes | ForEach-Object { [PortainerContainerProcess]::New($PSItem) }
+                $ContainerID = $PSItem.Id
             }
             elseif ($PSItem.GetType().Name -eq 'string')
             {
-                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$PSItem/top" -PortainerSession:$Session | Select-Object -expand processes | ForEach-Object { [PortainerContainerProcess]::New($PSItem) }
+                $ContainerID = $PSItem
             }
             else
             {
                 Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
+
+            InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/top" -PortainerSession:$Session | Select-Object -expand processes | ForEach-Object { [PortainerContainerProcess]::New($PSItem) }
         }
     }
 }

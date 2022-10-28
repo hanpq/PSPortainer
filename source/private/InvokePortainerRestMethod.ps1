@@ -69,18 +69,18 @@ function InvokePortainerRestMethod
     {
         $InvokeRestMethodSplat.Headers = $Headers
     }
-    if ($Body.Keys.Count -gt 0 )
+    if ($InvokeRestMethodSplat.Method -eq 'Get')
     {
-        if ($InvokeRestMethodSplat.Method -eq 'Get')
+        if ($Body.Keys.Count -gt 0 )
         {
             $InvokeRestMethodSplat.Body = $Body
         }
-        elseif ($InvokeRestMethodSplat.Method -eq 'Post')
-        {
-            # Might need to be changed, some post requests require formdata
-            $InvokeRestMethodSplat.Body = $Body | ConvertTo-Json -Compress
-            $InvokeRestMethodSplat.ContentType = 'application/json'
-        }
+    }
+    elseif ($InvokeRestMethodSplat.Method -eq 'Post')
+    {
+        # Might need to be changed, some post requests require formdata
+        $InvokeRestMethodSplat.Body = $Body | ConvertTo-Json -Compress
+        $InvokeRestMethodSplat.ContentType = 'application/json'
     }
 
 

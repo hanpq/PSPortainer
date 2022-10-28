@@ -127,6 +127,24 @@
           "Message": "Added Get-PContainerStatistics"
         }
       ]
+    },
+    {
+      "Version": "0.0.15",
+      "Date": "2022-10-28",
+      "Items": [
+        {
+          "Type": "added",
+          "Message": "Added Start-PContainer"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Stop-PContainer"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Restart-PContainer"
+        }
+      ]
     }
   ]
 }
