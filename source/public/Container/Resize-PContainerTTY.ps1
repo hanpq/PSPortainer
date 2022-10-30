@@ -34,7 +34,8 @@ function Resize-PContainerTTY
         Resize-PContainerTTY
         Description of example
     #>
-
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Height', Justification = 'False positive')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Width', Justification = 'False positive')]
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter()][string]$Endpoint,

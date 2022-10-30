@@ -5,54 +5,26 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-PContainer
+# Rename-PContainer
 
 ## SYNOPSIS
 
 ## SYNTAX
 
-### list (Default)
 ```
-Get-PContainer [-Endpoint <String>] [-Session <PortainerSession>] [<CommonParameters>]
-```
-
-### id
-```
-Get-PContainer [-Endpoint <String>] [-Id <Object[]>] [-Session <PortainerSession>] [<CommonParameters>]
+Rename-PContainer [[-Endpoint] <String>] [[-Id] <Object[]>] [[-Session] <PortainerSession>]
+ [[-NewName] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Retreives docker containers
+Rename a container
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-PContainer
+Resize-PContainerTTY
 ```
-
-Retreives all containers from the endpoint configured on the portainer session default docker endpoint setting.
-
-### EXAMPLE 2
-```
-"
-```
-
-Retreives a single container object with the specified Id
-
-### EXAMPLE 3
-```
-Get-PContainer -Endpoint 'prod'
-```
-
-Retreives all containers on the prod endpoint
-
-### EXAMPLE 4
-```
-Get-PContainer -Session $Session
-```
-
-Retreives all containers on the portainer instance defined
 
 ## PARAMETERS
 
@@ -72,7 +44,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -85,11 +57,11 @@ Defines the id of the container to retreive.
 
 ```yaml
 Type: Object[]
-Parameter Sets: id
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
@@ -105,6 +77,52 @@ This is useful when you are connected to more than one portainer instance.
 Type: PortainerSession
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NewName
+Defines the new name of the container
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named

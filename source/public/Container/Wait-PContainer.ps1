@@ -34,7 +34,7 @@ function Wait-PContainer
         Restart-PContainer
         Description of example
     #>
-
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Condition', Justification = 'False positive')]
     [CmdletBinding()]
     param(
         [Parameter()][string]$Endpoint,

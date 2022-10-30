@@ -35,7 +35,7 @@ function Rename-PContainer
     .EXAMPLE
         Resize-PContainerTTY
     #>
-
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'NewName', Justification = 'False positive')]
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter()][string]$Endpoint,

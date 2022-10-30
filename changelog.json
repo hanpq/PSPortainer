@@ -145,6 +145,32 @@
           "Message": "Added Restart-PContainer"
         }
       ]
+    },
+    {
+      "Version": "0.0.16",
+      "Date": "2022-10-31",
+      "Items": [
+        {
+          "Type": "added",
+          "Message": "Added Rename-PContainer"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Resize-PContainerTTY"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Resume-PContainer"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Suspend-PContainer"
+        },
+        {
+          "Type": "added",
+          "Message": "Added Wait-PContainer"
+        }
+      ]
     }
   ]
 }

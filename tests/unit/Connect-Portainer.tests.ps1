@@ -5,9 +5,9 @@ BeforeAll {
 Describe -Name 'Connect-Portainer.ps1' -Fixture {
     BeforeAll {
     }
-    Context -Name 'Parameters' {
-        It -Name 'Dummy' {
-            $True | Should -BeTrue
+    Context -Name 'When no parameters are specified' {
+        It -Name 'Should throw' {
+            { Connect-Portainer } | Should -Throw
         }
     }
 }

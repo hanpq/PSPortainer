@@ -1,6 +1,6 @@
-﻿@{
+@{
   RootModule = 'PSPortainer.psm1'
-  ModuleVersion = '0.0.15'
+  ModuleVersion = '0.0.16'
   CompatiblePSEditions = @('Core')
   GUID = 'a81b1e93-5997-4aeb-b491-524b7a309862'
   Author = 'Hannes Palmquist'
@@ -13,7 +13,7 @@
   PrivateData = @{
     ModuleName = 'PSPortainer.psm1'
     DateCreated = '2022-10-23'
-    LastBuildDate = '2022-10-30'
+    LastBuildDate = '2022-10-31'
     PSData = @{
       Tags = @('PSEdition_Core','Windows','Linux','MacOS')
       ProjectUri = 'https://getps.dev/modules/PSPortainer/quickstart'
