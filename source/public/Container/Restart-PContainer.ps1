@@ -1,19 +1,19 @@
 ﻿<#PSScriptInfo
 {
   "VERSION": "1.0.0",
-  "GUID": "8e1ee3eb-e9b1-459e-a631-a9c9d1be4ce6",
-  "FILENAME": "Get-PContainerProcess.ps1",
+  "GUID": "32e718aa-b4cf-4a35-bd12-36853ed90e7b",
+  "FILENAME": "Restart-PContainer.ps1",
   "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-25",
+  "CREATEDDATE": "2022-10-28",
   "COMPANYNAME": [],
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-function Get-PContainerProcess
+function Restart-PContainer
 {
     <#
     .DESCRIPTION
-        Get processes running inside the container
+        Restart container
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -31,12 +31,11 @@ function Get-PContainerProcess
 
         -Session $Session
     .EXAMPLE
-        Get-PContainer -Id '<id>' | Get-PContainerProcess
-
-        Retreives the running processes in the specified container
+        Restart-PContainer
+        Description of example
     #>
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Session', Justification = 'False positive')]
-    [CmdletBinding()] # Enabled advanced function support
+
+    [CmdletBinding(SupportsShouldProcess)] # Enabled advanced function support
     param(
         [Parameter()][string]$Endpoint,
         [Parameter(ValueFromPipeline)][object[]]$Id,
@@ -45,29 +44,14 @@ function Get-PContainerProcess
 
     BEGIN
     {
+        # Resolve the PortainerSession to use
+        $Session = Get-PSession -Session:$Session
+
         # Resolve Endpoint
-        if ([string]::IsNullOrEmpty($Endpoint))
-        {
-            Write-Debug 'GetPContainer; No Endpoint specified as parameter'
-            if ($null -ne $script:PortainerSession)
-            {
-                Write-Debug 'GetPContainer; PortainerSession found in script scope'
-                if ($script:PortainerSession.DefaultDockerEndpoint)
-                {
-                    $Endpoint = $script:PortainerSession.DefaultDockerEndpoint
-                    Write-Debug "GetPContainer; DefaultDockerEndpoint is defined: $Endpoint"
-                }
-                else
-                {
-                    $Endpoint = Read-Host -Prompt 'EndpointId'
-                }
-            }
-            else
-            {
-                $Endpoint = Read-Host -Prompt 'EndpointId'
-            }
-        }
-        $EndpointId = Get-PEndpoint -SearchString $Endpoint | Select-Object -ExpandProperty Id
+        $EndpointName = GetNonNullOrEmptyFromList -Array @($Endpoint, $Session.DefaultDockerEndpoint) -AskIfNoneIsFound -PropertyName 'EndpointName'
+        Write-Debug "GetPContainer; Endpoint $EndpointName select"
+
+        $EndpointId = Get-PEndpoint -SearchString $EndpointName | Select-Object -ExpandProperty Id
 
         if (-not $EndpointId)
         {
@@ -92,8 +76,27 @@ function Get-PContainerProcess
                 Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
 
-            InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/top" -PortainerSession:$Session | Select-Object -expand processes | ForEach-Object { [PortainerContainerProcess]::New($PSItem) }
+            if ($PSCmdlet.ShouldProcess($ContainerID, 'Restart'))
+            {
+                try
+                {
+                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/restart" -PortainerSession:$Session
+                }
+                catch
+                {
+                    if ($_.Exception.Message -like '*404*')
+                    {
+                        Write-Error -Message "No container with id <$ContainerID> could be found"
+                    }
+                    else
+                    {
+                        Write-Error -Message "Failed to restart container with id <$ContainerID> with error: $_"
+                    }
+                }
+            }
         }
     }
 }
+#endregion
+
 

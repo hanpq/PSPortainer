@@ -1,13 +1,13 @@
 BeforeAll {
-    . (Resolve-Path -Path "$PSScriptRoot\..\..\source\public\Connect-Portainer.ps1")
+    . (Resolve-Path -Path "$PSScriptRoot\..\..\source\public\Portainer\Connect-Portainer.ps1")
 }
 
-Describe -Name "Connect-Portainer.ps1" -Fixture {
+Describe -Name 'Connect-Portainer.ps1' -Fixture {
     BeforeAll {
     }
     Context -Name 'Parameters' {
         It -Name 'Dummy' {
-            $True | should -BeTrue
+            $True | Should -BeTrue
         }
     }
 }

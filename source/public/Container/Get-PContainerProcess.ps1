@@ -1,19 +1,19 @@
 ﻿<#PSScriptInfo
 {
   "VERSION": "1.0.0",
-  "GUID": "97a4ab27-c8c2-4715-aa10-3cf73e2b5eea",
-  "FILENAME": "Start-PContainer.ps1",
+  "GUID": "8e1ee3eb-e9b1-459e-a631-a9c9d1be4ce6",
+  "FILENAME": "Get-PContainerProcess.ps1",
   "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-28",
+  "CREATEDDATE": "2022-10-25",
   "COMPANYNAME": [],
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-function Start-PContainer
+function Get-PContainerProcess
 {
     <#
     .DESCRIPTION
-        Starts a container
+        Get processes running inside the container
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -31,11 +31,12 @@ function Start-PContainer
 
         -Session $Session
     .EXAMPLE
-        Start-PContainer
-        Description of example
-    #>
+        Get-PContainer -Id '<id>' | Get-PContainerProcess
 
-    [CmdletBinding(SupportsShouldProcess)]
+        Retreives the running processes in the specified container
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Session', Justification = 'False positive')]
+    [CmdletBinding()] # Enabled advanced function support
     param(
         [Parameter()][string]$Endpoint,
         [Parameter(ValueFromPipeline)][object[]]$Id,
@@ -53,14 +54,7 @@ function Start-PContainer
 
         $EndpointId = Get-PEndpoint -SearchString $EndpointName | Select-Object -ExpandProperty Id
 
-        if ($EndpointId)
-        {
-            if ($PSCmdlet.ParameterSetName -eq 'list')
-            {
-                [array]$Id = InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session -Body @{all = $true } | Select-Object -ExpandProperty Id
-            }
-        }
-        else
+        if (-not $EndpointId)
         {
             Write-Warning -Message 'No endpoint found'
             break
@@ -83,31 +77,8 @@ function Start-PContainer
                 Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
 
-            if ($PSCmdlet.ShouldProcess($ContainerID, 'Start'))
-            {
-                try
-                {
-                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/start" -PortainerSession:$Session
-                }
-                catch
-                {
-                    if ($_.Exception.Message -like '*304 (Not Modified)*')
-                    {
-                        Write-Warning -Message "Container <$ContainerID> is already started"
-                    }
-                    elseif ($_.Exception.Message -like '*404*')
-                    {
-                        Write-Error -Message "No container with id <$ContainerID> could be found"
-                    }
-                    else
-                    {
-                        Write-Error -Message "Failed to start container with id <$ContainerID> with error: $_"
-                    }
-                }
-            }
+            InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/top" -PortainerSession:$Session | Select-Object -expand processes | ForEach-Object { [PortainerContainerProcess]::New($PSItem) }
         }
     }
 }
-#endregion
-
 

@@ -54,14 +54,7 @@ function Stop-PContainer
 
         $EndpointId = Get-PEndpoint -SearchString $EndpointName | Select-Object -ExpandProperty Id
 
-        if ($EndpointId)
-        {
-            if ($PSCmdlet.ParameterSetName -eq 'list')
-            {
-                [array]$Id = InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session -Body @{all = $true } | Select-Object -ExpandProperty Id
-            }
-        }
-        else
+        if (-not $EndpointId)
         {
             Write-Warning -Message 'No endpoint found'
             break

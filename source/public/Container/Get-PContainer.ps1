@@ -1,19 +1,20 @@
 ﻿<#PSScriptInfo
 {
   "VERSION": "1.0.0",
-  "GUID": "32e718aa-b4cf-4a35-bd12-36853ed90e7b",
-  "FILENAME": "Restart-PContainer.ps1",
+  "GUID": "995b4fdc-f68c-41a3-b9d3-73219c3086e3",
+  "FILENAME": "Get-PContainer.ps1",
   "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-28",
-  "COMPANYNAME": [],
+  "CREATEDDATE": "2022-10-23",
+  "COMPANYNAME": "GetPS",
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-function Restart-PContainer
+
+function Get-PContainer
 {
     <#
     .DESCRIPTION
-        Restart container
+        Retreives docker containers
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -31,14 +32,27 @@ function Restart-PContainer
 
         -Session $Session
     .EXAMPLE
-        Restart-PContainer
-        Description of example
+        Get-PContainer
+
+        Retreives all containers from the endpoint configured on the portainer session default docker endpoint setting.
+    .EXAMPLE
+        Get-PContainer -Id "<id>"
+
+        Retreives a single container object with the specified Id
+    .EXAMPLE
+        Get-PContainer -Endpoint 'prod'
+
+        Retreives all containers on the prod endpoint
+    .EXAMPLE
+        Get-PContainer -Session $Session
+
+        Retreives all containers on the portainer instance defined
     #>
 
-    [CmdletBinding(SupportsShouldProcess)] # Enabled advanced function support
+    [CmdletBinding(DefaultParameterSetName = 'list')]
     param(
         [Parameter()][string]$Endpoint,
-        [Parameter(ValueFromPipeline)][object[]]$Id,
+        [Parameter(ParameterSetName = 'id', ValueFromPipeline)][object[]]$Id,
         [Parameter()][PortainerSession]$Session = $null
     )
 
@@ -83,27 +97,7 @@ function Restart-PContainer
                 Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
 
-            if ($PSCmdlet.ShouldProcess($ContainerID, 'Restart'))
-            {
-                try
-                {
-                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/restart" -PortainerSession:$Session
-                }
-                catch
-                {
-                    if ($_.Exception.Message -like '*404*')
-                    {
-                        Write-Error -Message "No container with id <$ContainerID> could be found"
-                    }
-                    else
-                    {
-                        Write-Error -Message "Failed to restart container with id <$ContainerID> with error: $_"
-                    }
-                }
-            }
+            InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PortainerContainer'); $_ }
         }
     }
 }
-#endregion
-
-
