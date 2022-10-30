@@ -1,19 +1,19 @@
 ﻿<#PSScriptInfo
 {
   "VERSION": "1.0.0",
-  "GUID": "32e718aa-b4cf-4a35-bd12-36853ed90e7b",
-  "FILENAME": "Restart-PContainer.ps1",
+  "GUID": "6ca5dda3-397a-4b2e-abac-8d0cf903de5f",
+  "FILENAME": "Resize-PContainerTTY.ps1",
   "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-28",
-  "COMPANYNAME": [],
+  "CREATEDDATE": "2022-10-30",
+  "COMPANYNAME": "GetPS",
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-function Restart-PContainer
+function Resize-PContainerTTY
 {
     <#
     .DESCRIPTION
-        Restart container
+        Resizes the TTY for a container
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -31,7 +31,7 @@ function Restart-PContainer
 
         -Session $Session
     .EXAMPLE
-        Restart-PContainer
+        Resize-PContainerTTY
         Description of example
     #>
 
@@ -39,7 +39,9 @@ function Restart-PContainer
     param(
         [Parameter()][string]$Endpoint,
         [Parameter(ValueFromPipeline)][object[]]$Id,
-        [Parameter()][PortainerSession]$Session = $null
+        [Parameter()][PortainerSession]$Session = $null,
+        [Parameter()][int]$Height,
+        [Parameter()][int]$Width
     )
 
     BEGIN
@@ -64,11 +66,11 @@ function Restart-PContainer
                 Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
 
-            if ($PSCmdlet.ShouldProcess($ContainerID, 'Restart'))
+            if ($PSCmdlet.ShouldProcess($ContainerID, 'Resize TTY'))
             {
                 try
                 {
-                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/restart" -PortainerSession:$Session
+                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/resize" -PortainerSession:$Session -Body @{h = $Height; w = $Width }
                 }
                 catch
                 {
@@ -78,13 +80,11 @@ function Restart-PContainer
                     }
                     else
                     {
-                        Write-Error -Message "Failed to restart container with id <$ContainerID> with error: $_"
+                        Write-Error -Message "Failed to resize container TTY with id <$ContainerID> with error: $_"
                     }
                 }
             }
         }
+
     }
 }
-#endregion
-
-

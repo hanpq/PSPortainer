@@ -1,12 +1,14 @@
-<#PSScriptInfo
-    .VERSION 1.0.0
-    .GUID bc240721-1c04-45de-bc7b-3945f6220f0b
-    .FILENAME ResolveEndpointID.ps1
-    .AUTHOR Hannes Palmquist
-    .CREATEDDATE 2022-10-30
-    .COMPANYNAME GetPS
-    .COPYRIGHT (c) 2022, Hannes Palmquist, All Rights Reserved
-#>
+﻿<#PSScriptInfo
+{
+  "VERSION": "1.0.0",
+  "GUID": "bc240721-1c04-45de-bc7b-3945f6220f0b",
+  "FILENAME": "ResolveEndpointID.ps1",
+  "AUTHOR": "Hannes Palmquist",
+  "CREATEDDATE": "2022-10-30",
+  "COMPANYNAME": "GetPS",
+  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
+}
+PSScriptInfo#>
 function ResolveEndpointID
 {
     <#

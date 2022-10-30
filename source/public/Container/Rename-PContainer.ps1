@@ -1,19 +1,19 @@
 ﻿<#PSScriptInfo
 {
   "VERSION": "1.0.0",
-  "GUID": "32e718aa-b4cf-4a35-bd12-36853ed90e7b",
-  "FILENAME": "Restart-PContainer.ps1",
+  "GUID": "d9022235-1976-48ee-94b0-93f768db398f",
+  "FILENAME": "Rename-PContainer.ps1",
   "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-28",
-  "COMPANYNAME": [],
+  "CREATEDDATE": "2022-10-30",
+  "COMPANYNAME": "GetPS",
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-function Restart-PContainer
+function Rename-PContainer
 {
     <#
     .DESCRIPTION
-        Restart container
+        Rename a container
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -30,16 +30,18 @@ function Restart-PContainer
         Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.
 
         -Session $Session
+    .PARAMETER NewName
+        Defines the new name of the container
     .EXAMPLE
-        Restart-PContainer
-        Description of example
+        Resize-PContainerTTY
     #>
 
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter()][string]$Endpoint,
         [Parameter(ValueFromPipeline)][object[]]$Id,
-        [Parameter()][PortainerSession]$Session = $null
+        [Parameter()][PortainerSession]$Session = $null,
+        [Parameter()][string]$NewName
     )
 
     BEGIN
@@ -64,11 +66,11 @@ function Restart-PContainer
                 Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
 
-            if ($PSCmdlet.ShouldProcess($ContainerID, 'Restart'))
+            if ($PSCmdlet.ShouldProcess($ContainerID, 'Rename'))
             {
                 try
                 {
-                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/restart" -PortainerSession:$Session
+                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/rename" -PortainerSession:$Session -Body @{ name = $NewName }
                 }
                 catch
                 {
@@ -76,15 +78,17 @@ function Restart-PContainer
                     {
                         Write-Error -Message "No container with id <$ContainerID> could be found"
                     }
+                    elseif ($_.Exception.Message -like '*409*')
+                    {
+                        Write-Error -Message "Name $NewName is already in use"
+                    }
                     else
                     {
-                        Write-Error -Message "Failed to restart container with id <$ContainerID> with error: $_"
+                        Write-Error -Message "Failed to rename container with id <$ContainerID> with error: $_"
                     }
                 }
             }
         }
+
     }
 }
-#endregion
-
-

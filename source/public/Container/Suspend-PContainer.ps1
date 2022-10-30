@@ -1,19 +1,19 @@
 ﻿<#PSScriptInfo
 {
   "VERSION": "1.0.0",
-  "GUID": "32e718aa-b4cf-4a35-bd12-36853ed90e7b",
-  "FILENAME": "Restart-PContainer.ps1",
+  "GUID": "d9c10133-746b-422f-8752-3ceb77cb53c9",
+  "FILENAME": "Suspend-PContainer.ps1",
   "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-28",
-  "COMPANYNAME": [],
+  "CREATEDDATE": "2022-10-30",
+  "COMPANYNAME": "GetPS",
   "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
 }
 PSScriptInfo#>
-function Restart-PContainer
+function Suspend-PContainer
 {
     <#
     .DESCRIPTION
-        Restart container
+        Pauses a container
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -64,11 +64,11 @@ function Restart-PContainer
                 Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
 
-            if ($PSCmdlet.ShouldProcess($ContainerID, 'Restart'))
+            if ($PSCmdlet.ShouldProcess($ContainerID, 'Suspend'))
             {
                 try
                 {
-                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/restart" -PortainerSession:$Session
+                    InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/pause" -PortainerSession:$Session
                 }
                 catch
                 {
@@ -78,13 +78,10 @@ function Restart-PContainer
                     }
                     else
                     {
-                        Write-Error -Message "Failed to restart container with id <$ContainerID> with error: $_"
+                        Write-Error -Message "Failed to suspend container with id <$ContainerID> with error: $_"
                     }
                 }
             }
         }
     }
 }
-#endregion
-
-
