@@ -44,20 +44,8 @@ function Restart-PContainer
 
     BEGIN
     {
-        # Resolve the PortainerSession to use
         $Session = Get-PSession -Session:$Session
-
-        # Resolve Endpoint
-        $EndpointName = GetNonNullOrEmptyFromList -Array @($Endpoint, $Session.DefaultDockerEndpoint) -AskIfNoneIsFound -PropertyName 'EndpointName'
-        Write-Debug "GetPContainer; Endpoint $EndpointName select"
-
-        $EndpointId = Get-PEndpoint -SearchString $EndpointName | Select-Object -ExpandProperty Id
-
-        if (-not $EndpointId)
-        {
-            Write-Warning -Message 'No endpoint found'
-            break
-        }
+        $EndpointID = ResolveEndpointID -Endpoint:$Endpoint -Session:$Session
     }
 
     PROCESS

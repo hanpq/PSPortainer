@@ -58,26 +58,12 @@ function Get-PContainer
 
     BEGIN
     {
-        # Resolve the PortainerSession to use
         $Session = Get-PSession -Session:$Session
+        $EndpointID = ResolveEndpointID -Endpoint:$Endpoint -Session:$Session
 
-        # Resolve Endpoint
-        $EndpointName = GetNonNullOrEmptyFromList -Array @($Endpoint, $Session.DefaultDockerEndpoint) -AskIfNoneIsFound -PropertyName 'EndpointName'
-        Write-Debug "GetPContainer; Endpoint $EndpointName select"
-
-        $EndpointId = Get-PEndpoint -SearchString $EndpointName | Select-Object -ExpandProperty Id
-
-        if ($EndpointId)
+        if ($PSCmdlet.ParameterSetName -eq 'list')
         {
-            if ($PSCmdlet.ParameterSetName -eq 'list')
-            {
-                [array]$Id = InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session -Body @{all = $true } | Select-Object -ExpandProperty Id
-            }
-        }
-        else
-        {
-            Write-Warning -Message 'No endpoint found'
-            break
+            [array]$Id = InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/json" -PortainerSession:$Session -Body @{all = $true } | Select-Object -ExpandProperty Id
         }
     }
 
