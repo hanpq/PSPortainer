@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "c0ed732e-d178-4e31-8969-c7ec01b70089",
-  "FILENAME": "PortainerSession.class.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-23",
-  "COMPANYNAME": "GetPS",
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'JWT token retreived in plain text')]
+﻿[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '', Justification = 'JWT token retreived in plain text')]
 class PortainerSession
 {
     [string]$BaseUri

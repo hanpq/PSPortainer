@@ -13,12 +13,21 @@ function InvokePortainerRestMethod
 {
     <#
     .DESCRIPTION
-        .
-    .PARAMETER Name
-        Description
+        Function that is responsible for making the rest api web call
+    .PARAMETER NoAuth
+        Specifies that the REST API call do not need authentication
+    .PARAMETER Method
+        Defines the method to use when calling the REST API, valid values GET,POST etc.
+    .PARAMETER PortainerSession
+        A PortainerSession object to use for the call.
+    .PARAMETER RelativePath
+        The REST API path relative to the base URL
+    .PARAMETER Body
+        Defines body attributes for the REST API call
+    .PARAMETER Headers
+        Defines header attributes for the REST API call
     .EXAMPLE
         InvokePortainerRestMethod
-        Description of example
     #>
     [CmdletBinding()] # Enabled advanced function support
     param(
@@ -90,5 +99,3 @@ function InvokePortainerRestMethod
 
 
 #endregion
-
-

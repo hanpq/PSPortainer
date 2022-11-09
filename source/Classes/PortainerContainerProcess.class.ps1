@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "eeec7c25-cb3b-43bd-ae6c-e5f5637ee91e",
-  "FILENAME": "PortainerContainerProcess.class.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-23",
-  "COMPANYNAME": "GetPS",
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-class PortainerContainerProcess
+﻿class PortainerContainerProcess
 {
     [string]$UserID
     [int]$ProcessID
@@ -19,6 +8,18 @@ class PortainerContainerProcess
     [string]$Terminal
     [timespan]$TIME
     [string]$Command
+
+    PortainerContainerProcess ()
+    {
+        $this.UserID = ''
+        $this.ProcessID = 0
+        $this.ParentProcessID = 0
+        $this.C = 0
+        $this.STime = ''
+        $this.Terminal = ''
+        $this.Time = New-TimeSpan
+        $this.Command = ''
+    }
 
     PortainerContainerProcess ([string[]]$Object)
     {
@@ -30,5 +31,10 @@ class PortainerContainerProcess
         $this.Terminal = $Object[5]
         $this.Time = [timespan]::Parse($Object[6])
         $this.Command = $Object[7]
+    }
+
+    [string] ToString ()
+    {
+        return "ProcessID: $($this.ProcessID)"
     }
 }

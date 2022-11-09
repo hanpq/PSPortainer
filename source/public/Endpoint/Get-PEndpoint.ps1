@@ -13,7 +13,7 @@ function Get-PEndpoint
 {
     <#
     .DESCRIPTION
-        Retreives endpoints
+        Retreives available endpoints
     .PARAMETER SearchString
         Defines a searchstring to use for filtering endpoints
     .PARAMETER Id
@@ -62,5 +62,3 @@ function Get-PEndpoint
 
 }
 #endregion
-
-

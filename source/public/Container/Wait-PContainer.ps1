@@ -30,6 +30,8 @@ function Wait-PContainer
         Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.
 
         -Session $Session
+    .PARAMETER Condition
+        Defines the condition that we are waiting for, valid values are notrunning, nextexit, removed
     .EXAMPLE
         Restart-PContainer
         Description of example

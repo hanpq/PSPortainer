@@ -13,7 +13,7 @@ function Rename-PContainer
 {
     <#
     .DESCRIPTION
-        Rename a container
+        Rename a container in portainer
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 

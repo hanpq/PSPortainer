@@ -13,7 +13,7 @@ function Stop-PContainer
 {
     <#
     .DESCRIPTION
-        Stop container
+        Stop a container in portainer
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -30,6 +30,8 @@ function Stop-PContainer
         Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.
 
         -Session $Session
+    .PARAMETER Kill
+        Defines that the container should be stopped with the kill command rather than a graceful shutdown
     .EXAMPLE
         Stop-PContainer
         Description of example
@@ -117,5 +119,3 @@ function Stop-PContainer
     }
 }
 #endregion
-
-

@@ -188,12 +188,12 @@ Describe "Help for files" -Tags 'helpQuality' {
         $parameters = $ParsedFunction.Body.ParamBlock.Parameters.name.VariablePath.Foreach{ $_.ToString() }
     }
 
-    It '<Name> has a SYNOPSIS' {
-        $FunctionHelp.Synopsis | Should -Not -BeNullOrEmpty
-    } -TestCases $allModuleFunctions
+    #It '<Name> has a SYNOPSIS' {
+    #    $FunctionHelp.Synopsis | Should -Not -BeNullOrEmpty
+    #} -TestCases $allModuleFunctions
 
-    It '<Name> has a Description, with length > 40' {
-        $FunctionHelp.Description.Length | Should -BeGreaterThan 40
+    It '<Name> has a Description, with length > 20' {
+        $FunctionHelp.Description.Length | Should -BeGreaterThan 25
     } -TestCases $allModuleFunctions
 
     It '<Name> has at least 1 example' {

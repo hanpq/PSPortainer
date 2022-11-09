@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     $ProjectPath = "$PSScriptRoot\..\..\.." | Convert-Path
     $ProjectName = (Get-ChildItem $ProjectPath\*\*.psd1 | Where-Object {
         ($_.Directory.Name -eq 'source') -and
@@ -9,23 +9,18 @@ BeforeAll {
                 catch
                 {
                     $false
-                }) }
+                })
+        }
     ).BaseName
 
     Import-Module $ProjectName -Force
-
 }
 
 InModuleScope $ProjectName {
-    Describe Write-PSProgress {
+    Describe Rename-PContainer {
         Context 'Default' {
-            It 'Should not throw' {
-                $ProgressPreference = 'SilentlyContinue'
-                {
-                    1..5 | ForEach-Object -Begin { $StartTime = Get-Date } -Process {
-                        Write-PSProgress -Activity 'Looping' -Target $PSItem -Counter $PSItem -Total 5 -StartTime $StartTime
-                    }
-                } | Should -Not -Throw
+            It 'Should be true' {
+                $true | Should -BeTrue
             }
         }
     }
