@@ -5,6 +5,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- For new features.
+
+### Changed
+
+- For changes in existing functionality.
+
+### Deprecated
+
+- For soon-to-be removed features.
+
+### Removed
+
+- For now removed features.
+
+### Fixed
+
+- For any bug fix.
+
+### Security
+
+- In case of vulnerabilities.
+
 ## [0.1.3] - 2022-11-09
 
 ### Changed
