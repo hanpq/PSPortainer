@@ -5,6 +5,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Asd
+
+## [0.1.3] - 2022-11-09
+
 ### Changed
 
 - New build pipeline
