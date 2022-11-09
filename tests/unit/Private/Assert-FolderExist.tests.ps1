@@ -1,0 +1,31 @@
+$ProjectPath = "$PSScriptRoot\..\..\.." | Convert-Path
+$ProjectName = (Get-ChildItem $ProjectPath\*\*.psd1 | Where-Object {
+        ($_.Directory.Name -eq 'source') -and
+        $(try
+            {
+                Test-ModuleManifest $_.FullName -ErrorAction Stop
+            }
+            catch
+            {
+                $false
+            }) }
+).BaseName
+
+Import-Module $ProjectName -Force
+
+InModuleScope $ProjectName {
+    Describe Assert-FolderExist {
+        Context 'Default' {
+            It 'Folder is created' {
+                'TestDrive:\FolderDoesNotExists' | Assert-FolderExist
+                'TestDrive:\FolderDoesNotExists' | should -Exist
+            }
+
+            It 'Folder is still present' {
+                New-Item -Path 'TestDrive:\FolderExists' -ItemType Directory
+                'TestDrive:\FolderExists' | Assert-FolderExist
+                'TestDrive:\FolderExists' | Should -Exist
+            }
+        }
+    }
+}
