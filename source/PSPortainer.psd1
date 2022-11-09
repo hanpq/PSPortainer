@@ -21,6 +21,7 @@
     CmdletsToExport      = '*'
     VariablesToExport    = '*'
     AliasesToExport      = '*'
+    FormatsToProcess     = @('.\include\PortainerContainer.Format.ps1xml', '.\include\PortainerContainerProcess.Format.ps1xml')
     PrivateData          = @{
         PSData = @{
             Prerelease               = ''
@@ -33,5 +34,3 @@
         }
     }
 }
-
-
