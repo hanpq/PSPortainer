@@ -30,9 +30,12 @@ function Resize-PContainerTTY
         Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.
 
         -Session $Session
+    .PARAMETER Height
+        Defines the height of the TTY session
+    .PARAMETER Width
+        Defines the width of the TTY session
     .EXAMPLE
         Resize-PContainerTTY
-        Description of example
     #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Height', Justification = 'False positive')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Width', Justification = 'False positive')]

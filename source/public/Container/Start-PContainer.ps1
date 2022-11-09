@@ -13,7 +13,7 @@ function Start-PContainer
 {
     <#
     .DESCRIPTION
-        Starts a container
+        Starts a container in portainer
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
@@ -90,5 +90,3 @@ function Start-PContainer
     }
 }
 #endregion
-
-

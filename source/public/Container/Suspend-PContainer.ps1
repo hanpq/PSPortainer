@@ -13,7 +13,7 @@ function Suspend-PContainer
 {
     <#
     .DESCRIPTION
-        Pauses a container
+        Pauses a container in portainer
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 
