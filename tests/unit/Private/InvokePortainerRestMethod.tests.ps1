@@ -1,4 +1,4 @@
-﻿BeforeAll {
+﻿BeforeDiscovery {
     $ProjectPath = "$PSScriptRoot\..\..\.." | Convert-Path
     $ProjectName = (Get-ChildItem $ProjectPath\*\*.psd1 | Where-Object {
         ($_.Directory.Name -eq 'source') -and
