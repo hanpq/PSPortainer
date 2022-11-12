@@ -88,14 +88,15 @@ param
     $PSTOOLS_PASS = (property PSTOOLS_PASS '')
 )
 
-Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -Name 'Publish-Module' -ErrorAction 'SilentlyContinue')) {
+Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -name 'Publish-Module' -ErrorAction 'SilentlyContinue')) {
     . Set-SamplerTaskVariable
 
-    Import-Module -name 'ModuleBuilder' -ErrorAction 'Stop'
+    Import-Module -Name 'ModuleBuilder' -ErrorAction 'Stop'
     $Credentials = [pscredential]::New($PSTOOLS_USER, (ConvertTo-SecureString -String $PSTOOLS_PASS -AsPlainText -Force))
-    if (-not (Get-PSRepository -name 'pstools' -ErrorAction SilentlyContinue))
+
+    if (-not (Get-PSRepository -Name 'pstools' -ErrorAction SilentlyContinue))
     {
-        Register-PSRepository -name 'pstools' -SourceLocation 'https://proget.getps.dev/nuget/pstools/' -Credential $Credentials -InstallationPolicy Trusted -PublishLocation 'https://proget.getps.dev/nuget/pstools/'
+        Register-PSRepository -Name 'pstools' -SourceLocation 'https://proget.getps.dev/nuget/pstools/' -Credential $Credentials -InstallationPolicy Trusted -PublishLocation 'https://proget.getps.dev/nuget/pstools/'
     }
 
     Write-Build DarkGray "`nAbout to release '$BuiltModuleBase'."
