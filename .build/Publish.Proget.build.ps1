@@ -96,23 +96,25 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -name 'Pu
 
     if (-not (Get-PSRepository -Name 'pstools' -ErrorAction SilentlyContinue))
     {
-        Register-PSRepository -Name 'pstools' -SourceLocation 'https://proget.getps.dev/nuget/pstools/' -Credential $Credentials -InstallationPolicy Trusted -PublishLocation 'https://proget.getps.dev/nuget/pstools/'
+        Register-PSRepository -Name 'pstools' -SourceLocation $PSTOOLS_SOURCE -Credential $Credentials -InstallationPolicy Trusted -PublishLocation $PSTOOLS_SOURCE
     }
 
     Write-Build DarkGray "`nAbout to release '$BuiltModuleBase'."
-    Write-Build DarkGray "APIToken: $($PSTOOLS_APITOKEN.SubString(0,4))..."
-    Write-Build DarkGray 'Repository: pstools'
-    Write-Build DarkGray "Path to module: $(Join-Path $OutputDirectory $ProjectName)"
+    Write-Build DarkGray "APIToken     : $($PSTOOLS_APITOKEN.SubString(0,5))..."
+    Write-Build DarkGray 'Repository   : pstools'
+    Write-Build DarkGray "Username     : $($PSTOOLS_USER.SubString(0,5))"
+    Write-Build DarkGray "Password     : $($PSTOOLS_PASS.SubString(0,5))"
 
     try
     {
-        Publish-Module -NuGetApiKey $PSTOOLS_APITOKEN -Path $BuiltModuleBase -Repository 'pstools'
+        Publish-Module -NuGetApiKey $PSTOOLS_APITOKEN -Path $BuiltModuleBase -Repository 'pstools' -ErrorAction Stop
+        Write-Build Green 'Successfully published module to ProGet'
     }
     catch
     {
         if ($_.Exception.message -like '*is already available in the repository*')
         {
-            Write-Build Yellow 'This module version is already published to PSGallery'
+            Write-Build Yellow 'This module version is already published to ProGet'
         }
         else
         {
@@ -121,4 +123,5 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -name 'Pu
     }
 
     Write-Build Green 'Package Published to Proget.'
+
 }
