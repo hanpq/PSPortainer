@@ -5,29 +5,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- Fixed 
-
 ### Changed
 
-- Modified module manifest
-
-### Deprecated
-
-- For soon-to-be removed fea
-
-### Removed
-
-- For now removed features.
-
-### Fixed
-
-- CI: updated proget step
-
-### Security
-
-- In case of vulnerabilities.
+- Implemented new CI/CD pipeline
 
 ## [0.1.3] - 2022-11-09
 
