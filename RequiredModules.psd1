@@ -16,6 +16,4 @@
     Sampler               = 'latest'
     'Sampler.GitHubTasks' = 'latest'
     Encoding              = 'latest'
-
-
 }

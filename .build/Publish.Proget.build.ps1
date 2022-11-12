@@ -77,131 +77,35 @@ param
 
     [Parameter()]
     [string]
-    $PSTOOLS_SOURCE = (property PSTOOLS_SOURCE '')
+    $PSTOOLS_SOURCE = (property PSTOOLS_SOURCE ''),
+
+    [Parameter()]
+    [string]
+    $PSTOOLS_USER = (property PSTOOLS_USER ''),
+
+    [Parameter()]
+    [string]
+    $PSTOOLS_PASS = (property PSTOOLS_PASS '')
 )
-
-function Register-PSRepositoryFix
-{
-    <#
-    .DESCRIPTION
-        This function provides a workaround for an issue where it is not possible to register thirdparty repositories correctly.
-    .PARAMETER Name
-        Defines the name of the repository
-    .PARAMETER SourceLocation
-        Defines the source location of the repository
-    .PARAMETER InstallationPolicy
-        Defines the installation policy for the repository
-    .PARAMETER Credential
-        Defines the credentials to use when interacting with the repository
-    .EXAMPLE
-        Register-PSRepositoryFix -Name 'Repo'
-
-        Register a repo with the specified settings
-    #>
-
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory = $true)]
-        [String]
-        $Name,
-
-        [Parameter(Mandatory = $true)]
-        [Uri]
-        $SourceLocation,
-
-        [ValidateSet('Trusted', 'Untrusted')]
-        $InstallationPolicy = 'Trusted',
-
-        [pscredential]
-        $Credential
-    )
-
-    PROCESS
-    {
-        $ErrorActionPreference = 'Stop'
-        Try
-        {
-            Write-Verbose 'Trying to register via Register-PSRepository'
-            if ($Credential)
-            {
-                Write-Verbose -Message 'Credentials provided'
-                Register-PSRepository -Name $Name -SourceLocation $SourceLocation -InstallationPolicy $InstallationPolicy -Credential $Credential
-            }
-            else
-            {
-                Register-PSRepository -Name $Name -SourceLocation $SourceLocation -InstallationPolicy $InstallationPolicy
-            }
-            Write-Verbose 'Registered via Register-PSRepository'
-        }
-        Catch
-        {
-            Write-Verbose 'Register-PSRepository failed, registering via workaround'
-
-            # Adding PSRepository directly to file
-            if ($Credential)
-            {
-                Write-Verbose -Message 'Credentials provided'
-                Register-PSRepository -Name $Name -SourceLocation $env:TEMP -InstallationPolicy $InstallationPolicy -Credential $Credential
-            }
-            else
-            {
-                Register-PSRepository -Name $Name -SourceLocation $env:TEMP -InstallationPolicy $InstallationPolicy
-            }
-            $PSRepositoriesXmlPath = "$env:LOCALAPPDATA\Microsoft\Windows\PowerShell\PowerShellGet\PSRepositories.xml"
-            $repos = Import-Clixml -Path $PSRepositoriesXmlPath
-            $repos[$Name].SourceLocation = $SourceLocation.AbsoluteUri
-            $repos[$Name].PublishLocation = $SourceLocation.AbsoluteUri
-            $repos[$Name].ScriptSourceLocation = $SourceLocation.AbsoluteUri
-            $repos[$Name].ScriptPublishLocation = $SourceLocation.AbsoluteUri
-            $repos | Export-Clixml -Path $PSRepositoriesXmlPath
-
-            # Reloading PSRepository list
-            Set-PSRepository -Name $Name -InstallationPolicy Trusted
-            Write-Warning -Message 'Powershell needs to be restarted before the new PSRepository is available'
-            Write-Verbose 'Registered via workaround'
-        }
-        $ErrorActionPreference = 'Continue'
-    }
-}
 
 Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -Name 'Publish-Module' -ErrorAction 'SilentlyContinue')) {
     . Set-SamplerTaskVariable
 
     Import-Module -name 'ModuleBuilder' -ErrorAction 'Stop'
-
+    $Credentials = [pscredential]::New($PSTOOLS_USER, (ConvertTo-SecureString -String $PSTOOLS_PASS -AsPlainText -Force))
     if (-not (Get-PSRepository -name 'pstools' -ErrorAction SilentlyContinue))
     {
-        Register-PSRepositoryFix -Name 'pstools' -SourceLocation $PSTOOLS_SOURCE
-    }
-
-    if (-not $BuiltModuleManifest)
-    {
-        throw "No valid manifest found for project $ProjectName."
-    }
-
-    # Uncomment release notes (the default in Plaster/New-ModuleManifest)
-    $ManifestString = Get-Content -Raw $BuiltModuleManifest
-    if ( $ManifestString -match '#\sReleaseNotes\s?=')
-    {
-        $ManifestString = $ManifestString -replace '#\sReleaseNotes\s?=', '  ReleaseNotes ='
-        $Utf8NoBomEncoding = [System.Text.UTF8Encoding]::new($False)
-        [System.IO.File]::WriteAllLines($BuiltModuleManifest, $ManifestString, $Utf8NoBomEncoding)
+        Register-PSRepository -name 'pstools' -SourceLocation 'https://proget.getps.dev/nuget/pstools/' -Credential $Credentials -InstallationPolicy Trusted -PublishLocation 'https://proget.getps.dev/nuget/pstools/'
     }
 
     Write-Build DarkGray "`nAbout to release '$BuiltModuleBase'."
     Write-Build DarkGray "APIToken: $($PSTOOLS_APITOKEN.SubString(0,4))..."
     Write-Build DarkGray 'Repository: pstools'
-
-    $PublishModuleParams = @{
-        Path        = $BuiltModuleBase
-        NuGetApiKey = $PSTOOLS_APITOKEN
-        Repository  = 'pstools'
-        ErrorAction = 'Stop'
-    }
+    Write-Build DarkGray "Path to module: $(Join-Path $OutputDirectory $ProjectName)"
 
     try
     {
-        Publish-Module @PublishModuleParams -ErrorAction SilentlyContinue
+        Publish-Module -NuGetApiKey $PSTOOLS_APITOKEN -Path $BuiltModuleBase -Repository 'pstools'
     }
     catch
     {
