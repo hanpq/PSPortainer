@@ -53,7 +53,7 @@ BuildWorkflow:
     - Create_ChangeLog_GitHub_PR
     - Publish_release_to_GitHub
     - publish_module_to_gallery
-    - publish_module_to_proget
+    #- publish_module_to_proget
 
 ####################################################
 #       PESTER  Configuration                      #
