@@ -77,11 +77,7 @@ param
 
     [Parameter()]
     [string]
-    $PSTOOLS_SOURCE = (property PSTOOLS_SOURCE ''),
-
-    [Parameter()]
-    $PSModuleFeed = (property PSModuleFeed 'pstools')
-
+    $PSTOOLS_SOURCE = (property PSTOOLS_SOURCE '')
 )
 
 function Register-PSRepositoryFix
@@ -168,14 +164,14 @@ function Register-PSRepositoryFix
     }
 }
 
-Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -name 'Publish-Module' -ErrorAction 'SilentlyContinue')) {
+Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -Name 'Publish-Module' -ErrorAction 'SilentlyContinue')) {
     . Set-SamplerTaskVariable
 
-    Import-Module -Name 'ModuleBuilder' -ErrorAction 'Stop'
+    Import-Module -name 'ModuleBuilder' -ErrorAction 'Stop'
 
-    if (-not (Get-PSRepository -Name 'pstools' -ErrorAction SilentlyContinue))
+    if (-not (Get-PSRepository -name 'pstools' -ErrorAction SilentlyContinue))
     {
-        Register-PSRepositoryFix -name 'pstools' -SourceLocation $PSTOOLS_SOURCE
+        Register-PSRepositoryFix -Name 'pstools' -SourceLocation $PSTOOLS_SOURCE
     }
 
     if (-not $BuiltModuleManifest)
@@ -193,18 +189,31 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -name 'Pu
     }
 
     Write-Build DarkGray "`nAbout to release '$BuiltModuleBase'."
-    Write-Build DarkGray "GalleryApiToken: $($GalleryApiToken.SubString(0,4))..."
-    Write-Build DarkGray "Repository: $PSModuleFeed"
-    Write-Build DarkGray (Get-ChildItem env: | Out-String)
+    Write-Build DarkGray "APIToken: $($PSTOOLS_APITOKEN.SubString(0,4))..."
+    Write-Build DarkGray 'Repository: pstools'
 
     $PublishModuleParams = @{
         Path        = $BuiltModuleBase
         NuGetApiKey = $PSTOOLS_APITOKEN
-        Repository  = $PSModuleFeed
+        Repository  = 'pstools'
         ErrorAction = 'Stop'
     }
 
-    Publish-Module @PublishModuleParams
+    try
+    {
+        Publish-Module @PublishModuleParams -ErrorAction SilentlyContinue
+    }
+    catch
+    {
+        if ($_.Exception.message -like '*is already available in the repository*')
+        {
+            Write-Build Yellow 'This module version is already published to PSGallery'
+        }
+        else
+        {
+            throw $_
+        }
+    }
 
     Write-Build Green 'Package Published to Proget.'
 }
