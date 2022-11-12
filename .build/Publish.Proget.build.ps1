@@ -88,10 +88,10 @@ param
     $PSTOOLS_PASS = (property PSTOOLS_PASS '')
 )
 
-Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -Name 'Publish-Module' -ErrorAction 'SilentlyContinue')) {
+Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -name 'Publish-Module' -ErrorAction 'SilentlyContinue')) {
     . Set-SamplerTaskVariable
 
-    Import-Module -name 'ModuleBuilder' -ErrorAction 'Stop'
+    Import-Module -Name 'ModuleBuilder' -ErrorAction 'Stop'
 
     Write-Build DarkGray "`nAbout to release '$BuiltModuleBase'."
     Write-Build DarkGray "APIToken     : $($PSTOOLS_APITOKEN.SubString(0,5))..."
@@ -102,10 +102,10 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -Name 'Pu
     $Credentials = [pscredential]::New($PSTOOLS_USER, (ConvertTo-SecureString -String $PSTOOLS_PASS -AsPlainText -Force))
     Write-Build DarkGray 'Created credentials  object'
 
-    if (-not (Get-PSRepository -name 'pstools' -ErrorAction SilentlyContinue))
+    if (-not (Get-PSRepository -Name 'pstools' -ErrorAction SilentlyContinue))
     {
         Write-Build DarkGray 'pstools repository not found, registering...'
-        Register-PSRepository -name 'pstools' -SourceLocation $PSTOOLS_SOURCE -Credential $Credentials -InstallationPolicy Trusted -PublishLocation $PSTOOLS_SOURCE
+        Register-PSRepository -Name 'pstools' -SourceLocation $PSTOOLS_SOURCE -Credential $Credentials -InstallationPolicy Trusted -PublishLocation $PSTOOLS_SOURCE
         Write-Build DarkGray 'pstools repository registried'
     }
 
