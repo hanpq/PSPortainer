@@ -80,7 +80,7 @@ param
     $PSTOOLS_SOURCE = (property PSTOOLS_SOURCE ''),
 
     [Parameter()]
-    $PSModuleFeed = 'pstools'
+    $PSModuleFeed = (property PSModuleFeed 'pstools')
 
 )
 
@@ -193,6 +193,9 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN -and (Get-Command -name 'Pu
     }
 
     Write-Build DarkGray "`nAbout to release '$BuiltModuleBase'."
+    Write-Build DarkGray "GalleryApiToken: $($GalleryApiToken.SubString(0,4))..."
+    Write-Build DarkGray "Repository: $PSModuleFeed"
+    Write-Build DarkGray (Get-ChildItem env: | Out-String)
 
     $PublishModuleParams = @{
         Path        = $BuiltModuleBase
