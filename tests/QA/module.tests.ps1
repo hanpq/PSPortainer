@@ -151,23 +151,23 @@ Describe 'General module control' -Tag 'FunctionalQuality' {
 }
 
 Describe "Quality for files" -Tag 'TestQuality' {
-    It "<Name> has a unit test" {
+    It "Function has unit tests | <Name>" {
         Get-ChildItem "$PSScriptRoot\.." -Recurse -Include "$($Name).Tests.ps1" | Should -Not -BeNullOrEmpty
     } -TestCases $allModuleFunctions
 
-    It "Script Analyzer for <Name>" {
+    It "Script Analyzer | <Name>" {
         $PSSAResult = (Invoke-ScriptAnalyzer -Path $File.FullName)
         $Report = $PSSAResult | Format-Table -AutoSize | Out-String -Width 110
         $PSSAResult  | Should -BeNullOrEmpty -Because `
             "some rule triggered.`r`n`r`n $Report"
     } -Skip:(-not $scriptAnalyzerRules) -TestCases $allModuleFunctions
 
-    It -Name '<Name> has appropriate line ending' -Test {
+    It -Name 'File has appropriate line ending | <Name>' -Test {
         $Result = Test-FileEndOfLine -RawCode (Get-Content -Path $File.FullName -Raw -Encoding UTF8)
         (($IsWindows -or $PSVersionTable.PSEdition -eq 'Desktop') -and $Result -eq 'Windows') -or (($IsLinux -or $IsMacOS) -and $Result -eq 'Unix') | Should -BeTrue
     } -TestCases $allModuleFunctions
 
-    It -Name '<Name> is encoded with UTF 8' -Test {
+    It -Name 'File is encoded in UTF8 | <Name>' -Test {
         # Workaround,  apperently the module encoding and subsequently the command Test-Encoding uses aliases for Sort-Object, these aliases are not available on linux and mac by default and the test fails on Linux and Mac. To mitigate this until the Encoding Module is patched, aliases for this are added.
         if ($IsMacOS -or $IsLinux)
         {
@@ -192,17 +192,17 @@ Describe "Help for files" -Tags 'helpQuality' {
     #    $FunctionHelp.Synopsis | Should -Not -BeNullOrEmpty
     #} -TestCases $allModuleFunctions
 
-    It '<Name> has a Description, with length > 20' {
+    It 'Help.Description Length > 25 | <Name>' {
         $FunctionHelp.Description.Length | Should -BeGreaterThan 25
     } -TestCases $allModuleFunctions
 
-    It '<Name> has at least 1 example' {
+    It 'Help.Examples.Count > 0 | <Name>' {
         $FunctionHelp.Examples.Count | Should -BeGreaterThan 0
         $FunctionHelp.Examples[0] | Should -Match ([regex]::Escape($function.Name))
         $FunctionHelp.Examples[0].Length | Should -BeGreaterThan ($function.Name.Length + 10)
     } -TestCases $allModuleFunctions
 
-    It '<Name> has help for parameters' {
+    It 'Help.Parameters | <Name>' {
         foreach ($parameter in $parameters)
         {
             $FunctionHelp.Parameters.($parameter.ToUpper()) | Should -Not -BeNullOrEmpty
