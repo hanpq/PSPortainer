@@ -32,7 +32,7 @@ jobs:
   Build:
     name: Build
     # Cannot run on ubuntu because Set-AuthenticodeSignature is not available from the module Microsoft.Powershell.Security on linux
-    #runs-on: ubuntu-latest
+    #runs-on:  ubuntu-latest
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
