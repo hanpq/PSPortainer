@@ -27,7 +27,7 @@
             Prerelease               = ''
             Tags                     = @('PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Linux', 'MacOS')
             LicenseUri               = 'https://github.com/hanpq/PSPortainer/blob/main/LICENSE'
-            ProjectUri               = 'https://getps.dev/modules/PSPortainer/usage_getstarted'
+            ProjectUri               = 'https://getps.dev/modules/PSPortainer/getstarted'
             IconUri                  = ''
             ReleaseNotes             = ''
             RequireLicenseAcceptance = $false
