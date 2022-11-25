@@ -201,6 +201,9 @@ jobs:
   Cleanup:
     name: Cleanup
     runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs:
+      - Deploy
     steps:
       - uses: geekyeggo/delete-artifact@v2
         with:
