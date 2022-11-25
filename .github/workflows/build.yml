@@ -197,3 +197,14 @@ jobs:
         env:
           GitHubToken: ${{ secrets.GITHUBTOKEN }}
           GalleryApiToken: ${{ secrets.GALLERYAPITOKEN }}
+
+  Cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: |
+            CodeCov*
+            output
+          failOnError: false

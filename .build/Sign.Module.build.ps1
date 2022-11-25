@@ -27,8 +27,6 @@ Task Sign_Module {
 
     Import-Module Microsoft.PowerShell.Security
 
-    #Get-Command -Module Microsoft.PowerShell.Security | ConvertTo-Json | Out-String
-
     $OutputDirectory = Get-SamplerAbsolutePath -Path $OutputDirectory -RelativeTo $BuildRoot
 
     $CertByteArray = [Convert]::FromBase64String($PFX_BASE64)
