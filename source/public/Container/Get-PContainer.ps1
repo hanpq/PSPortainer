@@ -14,7 +14,7 @@ function Get-PContainer
 {
     <#
     .DESCRIPTION
-        Retreives docker containers
+        Retreives docker containers from Portainer
     .PARAMETER Endpoint
         Defines the portainer endpoint to use when retreiving containers. If not specified the portainer sessions default docker endpoint value is used.
 

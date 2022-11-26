@@ -16,4 +16,5 @@
     Sampler               = 'latest'
     'Sampler.GitHubTasks' = 'latest'
     Encoding              = 'latest'
+    PlatyPS               = 'latest'
 }

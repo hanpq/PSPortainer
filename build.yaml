@@ -51,6 +51,7 @@ BuildWorkflow:
 
   publish:
     - Create_ChangeLog_GitHub_PR
+    - Update_GetPSDev_Docs
     - Publish_release_to_GitHub
     - publish_module_to_gallery
     #- publish_module_to_proget
@@ -108,3 +109,6 @@ GitHubConfig:
   GitHubConfigUserName: hanpq
   GitHubConfigUserEmail: hannes.palmquist@outlook.com
   UpdateChangelogOnPrerelease: false
+  Docs:
+    DocsRepo:
+      - "https://github.com/hanpq/getps.dev.git"
