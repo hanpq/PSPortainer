@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "32e718aa-b4cf-4a35-bd12-36853ed90e7b",
-  "FILENAME": "Restart-PContainer.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-28",
-  "COMPANYNAME": [],
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Restart-PContainer
+﻿function Restart-PContainer
 {
     <#
     .DESCRIPTION

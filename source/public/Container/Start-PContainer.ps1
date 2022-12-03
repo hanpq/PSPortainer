@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "97a4ab27-c8c2-4715-aa10-3cf73e2b5eea",
-  "FILENAME": "Start-PContainer.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-28",
-  "COMPANYNAME": [],
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Start-PContainer
+﻿function Start-PContainer
 {
     <#
     .DESCRIPTION

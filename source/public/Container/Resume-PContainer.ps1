@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "a25cd92a-ef1d-495d-a555-7ece51f720eb",
-  "FILENAME": "Resume-PContainer.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-30",
-  "COMPANYNAME": [],
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Resume-PContainer
+﻿function Resume-PContainer
 {
     <#
     .DESCRIPTION

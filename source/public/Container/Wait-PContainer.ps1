@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "fa217982-f766-4b75-9199-a628cb201837",
-  "FILENAME": "Wait-PContainer.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-30",
-  "COMPANYNAME": "GetPS",
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Wait-PContainer
+﻿function Wait-PContainer
 {
     <#
     .DESCRIPTION

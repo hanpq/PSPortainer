@@ -1,0 +1,309 @@
+Auth:
+    ✔ POST/auth @done(22-11-28 23:56)
+    ✔ POST/auth/logout @done(22-11-28 23:57)
+    ☐ POST/auth/oauth/validate
+custom_templates:
+    ☐ GET/custom_templates
+    ☐ POST/custom_templates
+    ☐ DELETE/custom_templates/{id}
+    ☐ GET/custom_templates/{id}
+    ☐ PUT/custom_templates/{id}
+    ☐ GET/custom_templates/{id}/file
+edge_groups:
+    ☐ GET/edge_groups
+    ☐ POST/edge_groups
+    ☐ DELETE/edge_groups/{id}
+    ☐ GET/edge_groups/{id}
+    ☐ PUT/edge_groups/{id}
+edge_jobs:
+    ☐ GET/edge_jobs
+    ☐ POST/edge_jobs
+    ☐ DELETE/edge_jobs/{id}
+    ☐ GET/edge_jobs/{id}
+    ☐ POST/edge_jobs/{id}
+    ☐ GET/edge_jobs/{id}/file
+    ☐ GET/edge_jobs/{id}/tasks
+    ☐ DELETE/edge_jobs/{id}/tasks/{taskID}/logs
+    ☐ GET/edge_jobs/{id}/tasks/{taskID}/logs
+    ☐ POST/edge_jobs/{id}/tasks/{taskID}/logs
+edge_stacks:
+    ☐ GET/edge_stacks
+    ☐ POST/edge_stacks
+    ☐ DELETE/edge_stacks/{id}
+    ☐ GET/edge_stacks/{id}
+    ☐ PUT/edge_stacks/{id}
+    ☐ GET/edge_stacks/{id}/file
+    ☐ PUT/edge_stacks/{id}/status
+    ☐ DELETE/edge_stacks/{id}/status/{endpoint_id}
+    ☐ GET/endpoints/{id}/edge/stacks/{stackid}
+edge_templates:
+    ☐ GET/edge_templates
+edge:
+    ☐ POST/endpoints/{id}/edge/jobs/{jobID}/logs
+    ☐ GET/endpoints/{id}/edge/stacks/{stackId}
+endpoints:
+    ✔ GET/endpoints @done(22-11-28 23:59)
+    ☐ POST/endpoints
+    ☐ DELETE/endpoints/{id}
+    ✔ GET/endpoints/{id} @done(22-11-28 23:59)
+    ☐ PUT/endpoints/{id}
+    ☐ PUT/endpoints/{id}/association
+    ☐ GET/endpoints/{id}/dockerhub/{registryId}
+    ☐ POST/endpoints/{id}/edge/jobs/{jobID}/logs
+    ☐ GET/endpoints/{id}/edge/stacks/{stackId}
+    ☐ GET/endpoints/{id}/edge/status
+    ☐ GET/endpoints/{id}/registries
+    ☐ PUT/endpoints/{id}/registries/{registryId}
+    ☐ PUT/endpoints/{id}/settings
+    ☐ POST/endpoints/{id}/snapshot
+    ☐ POST/endpoints/global-key
+    ☐ POST/endpoints/snapshot
+endpoint_groups:
+    ☐ GET/endpoint_groups
+    ☐ POST/endpoint_groups
+    ☐ DELETE/endpoint_groups/{id}
+    ☐ GET/endpoint_groups/{id}
+    ☐ PUT/endpoint_groups/{id}
+    ☐ DELETE/endpoint_groups/{id}/endpoints/{endpointId}
+    ☐ PUT/endpoint_groups/{id}/endpoints/{endpointId}
+kubernetes:
+    ☐ PUT/kubernetes/{id}/namespaces/{namespace}/system
+    ☐ GET/kubernetes/{id}/nodes_limits
+    ☐ GET/kubernetes/config
+motd:
+    ☐ GET/motd
+registries:
+    ☐ GET/registries
+    ☐ POST/registries
+    ☐ DELETE/registries/{id}
+    ☐ GET/registries/{id}
+    ☐ PUT/registries/{id}
+    ☐ POST/registries/{id}/configure
+resource_control:
+    ☐ POST/resource_controls
+    ☐ DELETE/resource_controls/{id}
+    ☐ PUT/resource_controls/{id}
+roles:
+    ☐ GET/roles
+settings:
+    ☐ GET/settings
+    ☐ PUT/settings
+    ✔ GET/settings/public @done(22-11-28 23:58)
+status:
+    ✔ GET/status @done(22-11-28 23:57)
+    ☐ GET/status/version
+users:
+    ☐ GET/users
+    ☐ POST/users
+    ☐ DELETE/users/{id}
+    ☐ GET/users/{id}
+    ☐ PUT/users/{id}
+    ☐ GET/users/{id}/memberships
+    ☐ PUT/users/{id}/passwd
+    ☐ GET/users/{id}/tokens
+    ☐ POST/users/{id}/tokens
+    ☐ DELETE/users/{id}/tokens/{keyID}
+    ☐ GET/users/admin/check
+    ☐ POST/users/admin/init
+tags:
+    ☐ GET/tags
+    ☐ POST/tags
+    ☐ DELETE/tags/{id}
+teams:
+    ☐ POST/team
+    ☐ PUT/team/{id}
+    ☐ GET/teams
+    ☐ DELETE/teams/{id}
+    ☐ GET/teams/{id}
+templates:
+    ☐ GET/templates
+    ☐ POST/templates/file
+stacks:
+    ☐ GET/stacks
+    ☐ POST/stacks
+    ☐ DELETE/stacks/{id}
+    ☐ GET/stacks/{id}
+    ☐ PUT/stacks/{id}
+    ☐ PUT/stacks/{id}/associate
+    ☐ GET/stacks/{id}/file
+    ☐ POST/stacks/{id}/git
+    ☐ PUT/stacks/{id}/git/redeploy
+    ☐ POST/stacks/{id}/migrate
+    ☐ POST/stacks/{id}/start
+    ☐ POST/stacks/{id}/stop
+    ☐ POST/stacks/webhooks/{webhookID}
+ssl:
+    ☐ GET/ssl
+    ☐ PUT/ssl
+upload:
+    ☐ POST/upload/tls/{certificate}
+webhooks:
+    ☐ GET/webhooks
+    ☐ POST/webhooks
+    ☐ DELETE/webhooks/{id}
+    ☐ PUT/webhooks/{id}
+    ☐ POST/webhooks/{token}
+websocket:
+    ☐ GET/websocket/attach
+    ☐ GET/websocket/exec
+    ☐ GET/websocket/kubernetes-shell
+    ☐ GET/websocket/pod
+backup:
+    ☐ POST/backup
+    ☐ POST/restore
+docker:
+    containers:
+        ✔ GET/docker/{environmentId}/containers/json @done(22-11-29 00:00)
+        ☐ POST/docker/{environmentId}/containers/create
+        ✔ GET/docker/{environmentId}/containers/{id}/json @done(22-11-29 00:00)
+        ✔ GET/docker/{environmentId}/containers/{id}/top @done(22-11-29 00:01)
+        ☐ GET/docker/{environmentId}/containers/{id}/logs
+        ☐ GET/docker/{environmentId}/containers/{id}/changes
+        ☐ GET/docker/{environmentId}/containers/{id}/export
+        ✔ GET/docker/{environmentId}/containers/{id}/stats @done(22-11-29 00:01)
+        ☐ POST/docker/{environmentId}/containers/{id}/resize
+        ✔ POST/docker/{environmentId}/containers/{id}/start @done(22-11-29 00:01)
+        ✔ POST/docker/{environmentId}/containers/{id}/stop @done(22-11-29 00:02)
+        ✔ POST/docker/{environmentId}/containers/{id}/restart @done(22-11-29 00:02)
+        ✔ POST/docker/{environmentId}/containers/{id}/kill @done(22-11-29 00:02)
+        ☐ POST/docker/{environmentId}/containers/{id}/update
+        ✔ POST/docker/{environmentId}/containers/{id}/rename @done(22-11-29 00:02)
+        ✔ POST/docker/{environmentId}/containers/{id}/pause @done(22-11-29 00:01)
+        ✔ POST/docker/{environmentId}/containers/{id}/unpause @done(22-11-29 00:01)
+        ☐ POST/docker/{environmentId}/containers/{id}/attach
+        ☐ GET/docker/{environmentId}/containers/{id}/attach/ws
+        ✔ POST/docker/{environmentId}/containers/{id}/wait @done(22-11-29 00:02)
+        ☐ DELETE/docker/{environmentId}/containers/{id}
+        ☐ HEAD/docker/{environmentId}/containers/{id}/archive
+        ☐ GET/docker/{environmentId}/containers/{id}/archive
+        ☐ PUT/docker/{environmentId}/containers/{id}/archive
+        ☐ POST/docker/{environmentId}/containers/{id}/prune
+    images:
+        ☐ GET/docker/{environmentId}/images/json
+        ☐ POST/docker/{environmentId}/build
+        ☐ POST/docker/{environmentId}/build/prune
+        ☐ POST/docker/{environmentId}/images/create
+        ☐ GET/docker/{environmentId}/images/{name}/json
+        ☐ GET/docker/{environmentId}/images/{name}/history
+        ☐ POST/docker/{environmentId}/images/{name}/push
+        ☐ POST/docker/{environmentId}/images/{name}/tag
+        ☐ DELETE/docker/{environmentId}/images/{name}
+        ☐ GET/docker/{environmentId}/images/search
+        ☐ POST/docker/{environmentId}/images/prune
+        ☐ POST/docker/{environmentId}/commit
+        ☐ GET/docker/{environmentId}/images/{name}/get
+        ☐ GET/docker/{environmentId}/images/get
+        ☐ POST/docker/{environmentId}/images/load
+    networks:
+        ☐ GET/docker/{environmentId}/networks
+        ☐ GET/docker/{environmentId}/networks/{id}
+        ☐ DELETE/docker/{environmentId}/networks/{id}
+        ☐ POST/docker/{environmentId}/networks/create
+        ☐ POST/docker/{environmentId}/networks/{id}/connect
+        ☐ POST/docker/{environmentId}/networks/{id}/disconnect
+        ☐ POST/docker/{environmentId}/networks/prune
+    volumes:
+        ☐ GET/docker/{environmentId}/volumes
+        ☐ POST/docker/{environmentId}/volumes/create
+        ☐ GET/docker/{environmentId}/volumes/{name}
+        ☐ DELETE/docker/{environmentId}/volumes/{name}
+        ☐ POST/docker/{environmentId}/volumes/prune
+    exec:
+        ☐ POST/docker/{environmentId}/containers/{id}/exec
+        ☐ POST/docker/{environmentId}/exec/{id}/start
+        ☐ POST/docker/{environmentId}/exec/{id}/resize
+        ☐ GET/docker/{environmentId}/exec/{id}/json
+    swarm:
+        ☐ GET/docker/{environmentId}/swarm
+        ☐ POST/docker/{environmentId}/swarm/init
+        ☐ POST/docker/{environmentId}/swarm/join
+        ☐ POST/docker/{environmentId}/swarm/leave
+        ☐ POST/docker/{environmentId}/swarm/update
+        ☐ GET/docker/{environmentId}/swarm/unlockkey
+        ☐ POST/docker/{environmentId}/swarm/unlock
+    Nodes:
+        ☐ GET/docker/{environmentId}/nodes
+        ☐ GET/docker/{environmentId}/nodes/{id}
+        ☐ DELETE/docker/{environmentId}/nodes/{id}
+        ☐ POST/docker/{environmentId}/nodes/{id}/update
+    Services:
+        ☐ GET/docker/{environmentId}/services
+        ☐ POST/docker/{environmentId}/services/create
+        ☐ GET/docker/{environmentId}/services/{id}
+        ☐ DELETE/docker/{environmentId}/services/{id}
+        ☐ POST/docker/{environmentId}/services/{id}/update
+        ☐ GET/docker/{environmentId}/services/{id}/logs
+    Tasks:
+        ☐ GET/docker/{environmentId}/tasks
+        ☐ GET/docker/{environmentId}/tasks/{id}
+        ☐ GET/docker/{environmentId}/tasks/{id}/logs
+    Secrets:
+        ☐ GET/docker/{environmentId}/secrets
+        ☐ POST/docker/{environmentId}/secrets/create
+        ☐ GET/docker/{environmentId}/secrets/{id}
+        ☐ DELETE/docker/{environmentId}/secrets/{id}
+        ☐ POST/docker/{environmentId}/secrets/{id}/update
+    Configs:
+        ☐ GET/docker/{environmentId}/configs
+        ☐ POST/docker/{environmentId}/configs/create
+        ☐ GET/docker/{environmentId}/configs/{id}
+        ☐ DELETE/docker/{environmentId}/configs/{id}
+        ☐ POST/docker/{environmentId}/configs/{id}/update
+    Plugins:
+        ☐ GET/docker/{environmentId}/plugins
+        ☐ GET:plugins/privileges
+        ☐ POST/docker/{environmentId}/plugins/pull
+        ☐ GET/docker/{environmentId}/plugins/{name}/json
+        ☐ DELETE/docker/{environmentId}/plugins/{name}
+        ☐ POST/docker/{environmentId}/plugins/{name}/enable
+        ☐ POST/docker/{environmentId}/plugins/{name}/disable
+        ☐ POST/docker/{environmentId}/plugins/{name}/upgrade
+        ☐ POST/docker/{environmentId}/plugins/create
+        ☐ POST/docker/{environmentId}/plugins/{name}/push
+        ☐ POST/docker/{environmentId}/plugins/{name}/set
+    System:
+        ☐ POST/docker/{environmentId}/auth
+        ☐ GET/docker/{environmentId}/info
+        ☐ GET/docker/{environmentId}/version
+        ☐ GET/docker/{environmentId}/_ping
+        ☐ HEAD/docker/{environmentId}/_ping
+        ☐ GET/docker/{environmentId}/events
+        ☐ GET/docker/{environmentId}/system/df
+    Distribution:
+        ☐ GET/docker/{environmentId}/distribution/{name}/json
+    Session:
+        ☐ POST/docker/{environmentId}/session
+edge_update_schedules:
+    ☐ GET/edge_update_schedules
+    ☐ POST/edge_update_schedules
+    ☐ DELETE/edge_update_schedules/{id}
+    ☐ GET/edge_update_schedules/{id}
+    ☐ GET/edge_update_schedules/active
+    ☐ GET/edge_update_schedules/agent_versions
+helm:
+    ☐ GET/endpoints/{id}/kubernetes/helm
+    ☐ POST/endpoints/{id}/kubernetes/helm
+    ☐ DELETE/endpoints/{id}/kubernetes/helm/{release}
+    ☐ GET/endpoints/{id}/kubernetes/helm/repositories
+    ☐ POST/endpoints/{id}/kubernetes/helm/repositories
+    ☐ GET/templates/helm
+    ☐ GET/templates/helm/{command}
+intel:
+    ☐ POST/fdo
+    ☐ POST/fdo/configure/{guid}
+    ☐ GET/fdo/list
+    ☐ GET/fdo/profiles
+    ☐ POST/fdo/profiles
+    ☐ DELETE/fdo/profiles/{id}
+    ☐ GET/fdo/profiles/{id}
+    ☐ PUT/fdo/profiles/{id}
+    ☐ POST/fdo/profiles/{id}/duplicate
+    ☐ POST/fdo/register
+    ☐ POST/open_amt
+    ☐ POST/open_amt/{id}/activate
+    ☐ GET/open_amt/{id}/devices
+    ☐ POST/open_amt/{id}/devices/{deviceId}/action
+    ☐ POST/open_amt/{id}/devices_features/{deviceId}
+    ☐ GET/open_amt/{id}/info
+ldap:
+    ☐ POST/ldap/check

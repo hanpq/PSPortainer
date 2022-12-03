@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "d9022235-1976-48ee-94b0-93f768db398f",
-  "FILENAME": "Rename-PContainer.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-30",
-  "COMPANYNAME": "GetPS",
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Rename-PContainer
+﻿function Rename-PContainer
 {
     <#
     .DESCRIPTION

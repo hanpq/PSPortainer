@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "affcc338-63ee-4808-aaf4-3e6afc562eb0",
-  "FILENAME": "Get-PContainerStatistic.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-27",
-  "COMPANYNAME": [],
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Get-PContainerStatistic
+﻿function Get-PContainerStatistic
 {
     <#
     .DESCRIPTION
@@ -69,5 +58,3 @@ function Get-PContainerStatistic
     }
 }
 #endregion
-
-

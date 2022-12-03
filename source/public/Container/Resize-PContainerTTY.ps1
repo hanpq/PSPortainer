@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "6ca5dda3-397a-4b2e-abac-8d0cf903de5f",
-  "FILENAME": "Resize-PContainerTTY.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-30",
-  "COMPANYNAME": "GetPS",
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Resize-PContainerTTY
+﻿function Resize-PContainerTTY
 {
     <#
     .DESCRIPTION

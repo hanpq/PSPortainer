@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "82e7ab5b-b8c1-464c-8ce9-8593f8949caf",
-  "FILENAME": "Get-PEndpoint.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-24",
-  "COMPANYNAME": "\"GetPS\"",
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Get-PEndpoint
+﻿function Get-PEndpoint
 {
     <#
     .DESCRIPTION
@@ -61,4 +50,3 @@ function Get-PEndpoint
     }
 
 }
-#endregion

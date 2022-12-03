@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "e2180652-5c6b-4b37-97ce-e7beb7d067b9",
-  "FILENAME": "Stop-PContainer.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-28",
-  "COMPANYNAME": [],
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Stop-PContainer
+﻿function Stop-PContainer
 {
     <#
     .DESCRIPTION

@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "d9c10133-746b-422f-8752-3ceb77cb53c9",
-  "FILENAME": "Suspend-PContainer.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-30",
-  "COMPANYNAME": "GetPS",
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Suspend-PContainer
+﻿function Suspend-PContainer
 {
     <#
     .DESCRIPTION

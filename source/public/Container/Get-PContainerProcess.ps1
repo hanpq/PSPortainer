@@ -1,15 +1,4 @@
-﻿<#PSScriptInfo
-{
-  "VERSION": "1.0.0",
-  "GUID": "8e1ee3eb-e9b1-459e-a631-a9c9d1be4ce6",
-  "FILENAME": "Get-PContainerProcess.ps1",
-  "AUTHOR": "Hannes Palmquist",
-  "CREATEDDATE": "2022-10-25",
-  "COMPANYNAME": [],
-  "COPYRIGHT": "(c) 2022, Hannes Palmquist, All Rights Reserved"
-}
-PSScriptInfo#>
-function Get-PContainerProcess
+﻿function Get-PContainerProcess
 {
     <#
     .DESCRIPTION
@@ -69,4 +58,3 @@ function Get-PContainerProcess
         }
     }
 }
-
