@@ -115,6 +115,10 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN) {
         {
             Write-Build Yellow 'This module version is already published to ProGet'
         }
+        elseif ($_.Exception.message -like '*The required element*version*is missing*')
+        {
+            Write-Build Red 'Failed to publish module because element version is missing from the manifest'
+        }
         else
         {
             throw $_
