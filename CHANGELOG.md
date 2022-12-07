@@ -1,6 +1,8 @@
 # Changelog for PSPortainer
 
 ## [Unreleased]
+
+## [0.2.1] - 2022-12-07
 ### Fixed
 
 - Removed module signature as the certificate used is invalid
