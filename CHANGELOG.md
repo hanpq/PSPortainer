@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Removed module signature as the certificate used is invalid
+
 ## [0.1.4] - 2022-11-12
 
 ### Changed
