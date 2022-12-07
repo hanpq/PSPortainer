@@ -24,13 +24,13 @@
     FormatsToProcess     = @('.\include\PortainerContainer.Format.ps1xml', '.\include\PortainerContainerProcess.Format.ps1xml')
     PrivateData          = @{
         PSData = @{
-            Prerelease               = ''
-            Tags                     = @('PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Linux', 'MacOS')
-            LicenseUri               = 'https://github.com/hanpq/PSPortainer/blob/main/LICENSE'
-            ProjectUri               = 'https://getps.dev/modules/PSPortainer/getstarted'
-            IconUri                  = ''
-            ReleaseNotes             = ''
-            RequireLicenseAcceptance = $false
+            Prerelease   = ''
+            Tags         = @('PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Linux', 'MacOS')
+            #LicenseUri               = 'https://github.com/hanpq/PSPortainer/blob/main/LICENSE'
+            ProjectUri   = 'https://getps.dev/modules/PSPortainer/getstarted'
+            #IconUri                  = ''
+            ReleaseNotes = ''
+            #RequireLicenseAcceptance = $false
         }
     }
 }
