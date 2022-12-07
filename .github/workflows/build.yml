@@ -201,7 +201,7 @@ jobs:
   Cleanup:
     name: Cleanup
     runs-on: ubuntu-latest
-    if: ${{ always() }}
+    #if: ${{ always() }}
     needs:
       - Deploy
     steps:
