@@ -30,8 +30,8 @@ jobs:
   Build:
     name: Build
     # If sign module build task is used, windows-latest must be used because Set-AuthenticodeSignature is not available from the module Microsoft.Powershell.Security on linux
-    runs-on: ubuntu-latest
-    #runs-on: windows-latest
+    #runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
         with:
