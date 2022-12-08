@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.2.5] - 2022-12-08
+
 ### Fixed
 
 - Fixed an issue in the release pipeline where an empty prerelease property in the manifest caused publishing to a custom nuget repo to fail.
