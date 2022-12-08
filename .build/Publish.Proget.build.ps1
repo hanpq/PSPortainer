@@ -105,8 +105,10 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN) {
     # Remove empty Prerelease property, see note above
     $UpdatedManifest = Get-Content $BuiltModuleManifest | Where-Object { $_ -notlike "*Prerelease   = ''" }
     $UpdatedManifest | Set-Content $BuiltModuleManifest
+    Write-Build DarkGray 'Removed empty Prerelease property if present'
 
-    Import-Module -Name 'ModuleBuilder' -ErrorAction Stop
+    Import-Module -name 'ModuleBuilder' -ErrorAction Stop
+    Write-Build DarkGray 'Imported module ModuleBuilder'
 
     Write-Build DarkGray "`nAbout to publish '$BuiltModuleBase'."
 
