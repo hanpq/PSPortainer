@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.1] - 2022-12-08
+
 ### Added
 
 - Added function New-PContainer
