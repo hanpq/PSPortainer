@@ -241,23 +241,26 @@
 
     foreach ($Property in $AsIsIfValueProperties)
     {
-        if (Get-Variable -Name $Property)
+        if (Get-Variable -Name $Property -ValueOnly)
         {
-            $Configuration.$Property = Get-Variable -Name $Property
+            $Configuration.$Property = Get-Variable -Name $Property -ValueOnly
         }
     }
 
     foreach ($Property in $AsIsAlwaysProperties)
     {
-        $Configuration.$Property = Get-Variable -Name $Property
+        if (Get-Variable -Name $Property -ValueOnly)
+        {
+            $Configuration.$Property = Get-Variable -Name $Property -ValueOnly
+        }
     }
 
     foreach ($Property in $ValueArrayProperties)
     {
-        if (Get-Variable -Name $Property)
+        if (Get-Variable -Name $Property -ValueOnly)
         {
             $Configuration.$Property = @{}
-            foreach ($Item in (Get-Variable -Name $Property))
+            foreach ($Item in (Get-Variable -Name $Property -ValueOnly))
             {
                 $Configuration.$Property.$Item = @{}
             }
@@ -266,14 +269,18 @@
 
     foreach ($Property in $StringArrayProperties)
     {
-        $Configuration.$Property = [string[]](Get-Variable -Name $Property)
+        if (Get-Variable -Name $Property -ValueOnly)
+        {
+            $Configuration.$Property = [string[]](Get-Variable -Name $Property -ValueOnly)
+        }
     }
 
     if ($PSCmdlet.ShouldProcess($Name, 'Create container'))
     {
         try
         {
-            InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/create?name=$Name&platform=$Platform" -Body $Configuration -PortainerSession:$Session
+            $CreatedContainer = InvokePortainerRestMethod -Method POST -RelativePath "/endpoints/$EndpointId/docker/containers/create?name=$Name&platform=$Platform" -Body $Configuration -PortainerSession:$Session
+            Get-PContainer -Id $CreatedContainer.Id
         }
         catch
         {
