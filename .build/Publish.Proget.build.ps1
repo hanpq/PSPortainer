@@ -103,20 +103,20 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN) {
     . Set-SamplerTaskVariable
 
     # Remove empty Prerelease property, see note above
-    $UpdatedManifest = Get-Content $BuiltModuleManifest | Where-Object { $_ -notlike "*Prerelease   = ''" }
+    $UpdatedManifest = Get-Content $BuiltModuleManifest | Where-Object { $_ -notlike "*Prerelease*= ''" }
     $UpdatedManifest | Set-Content $BuiltModuleManifest
     Write-Build DarkGray 'Removed empty Prerelease property if present'
 
-    Import-Module -name 'ModuleBuilder' -ErrorAction Stop
+    Import-Module -Name 'ModuleBuilder' -ErrorAction Stop
     Write-Build DarkGray 'Imported module ModuleBuilder'
 
     Write-Build DarkGray "`nAbout to publish '$BuiltModuleBase'."
 
-    Import-Module PowershellGet -requiredVersion 3.0.17 -Force
+    Import-Module PowershellGet -RequiredVersion 3.0.17 -Force
     Write-Build DarkGray 'Imported PowershellGet v3'
 
     $RepoGuid = (New-Guid).Guid
-    Register-PSResourceRepository -name $RepoGuid -Uri $PSTOOLS_SOURCE -Trusted
+    Register-PSResourceRepository -Name $RepoGuid -Uri $PSTOOLS_SOURCE -Trusted
     Write-Build DarkGray 'Registered ResourceRepository'
 
     try
@@ -142,6 +142,6 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN) {
     }
     finally
     {
-        Unregister-PSResourceRepository -name $RepoGuid -Confirm:$false
+        Unregister-PSResourceRepository -Name $RepoGuid -Confirm:$false
     }
 }
