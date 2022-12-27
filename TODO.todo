@@ -3,12 +3,12 @@ Auth:
     ✔ POST/auth/logout @done(22-11-28 23:57)
     ☐ POST/auth/oauth/validate
 custom_templates:
-    ☐ GET/custom_templates
+    ✔ GET/custom_templates @done(22-12-28 00:09)
     ☐ POST/custom_templates
     ☐ DELETE/custom_templates/{id}
-    ☐ GET/custom_templates/{id}
+    ✔ GET/custom_templates/{id} @done(22-12-28 00:09)
     ☐ PUT/custom_templates/{id}
-    ☐ GET/custom_templates/{id}/file
+    ✔ GET/custom_templates/{id}/file @done(22-12-28 00:30)
 edge_groups:
     ☐ GET/edge_groups
     ☐ POST/edge_groups
