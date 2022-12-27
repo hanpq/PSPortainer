@@ -32,7 +32,7 @@
 
         Retreives all custom templates on the portainer instance defined
     #>
-
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'IncludeStackFile', Justification = 'False positive')]
     [CmdletBinding(DefaultParameterSetName = 'list')]
     param(
         [Parameter(ParameterSetName = 'id', ValueFromPipeline, Mandatory)]
