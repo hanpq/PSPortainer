@@ -11,6 +11,14 @@
         Optionally define a portainer session object to use. This is useful when you are connected to more than one portainer instance.
 
         -Session $Session
+    .PARAMETER Type
+        When listing all custom templates the scope can be limited to a type of template. Valid values are 1,2,3
+
+        -Type 2
+    .PARAMETER IncludeStackFile
+        When specifying ids or piping templates/ids this parameter can be used to retreive the content of the stack configuration file.
+
+        -IncludeStackFile
     .EXAMPLE
         Get-PCustomTemplate
 
