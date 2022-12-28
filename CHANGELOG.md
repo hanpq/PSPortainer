@@ -2,8 +2,6 @@
 
 ## [Unreleased]
 
-## [0.4.1] - 2022-12-27
-
 ### Added
 
 - Added function Get-PCustomTemplate, covering GET:/customtemplates, GET:/customtemplates/{id} and GET:/customtemplates/{id}/file
