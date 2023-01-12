@@ -8,6 +8,10 @@
 
 - Added function Get-PCustomTemplate, covering GET:/customtemplates, GET:/customtemplates/{id} and GET:/customtemplates/{id}/file
 
+### Fixed
+
+- Added back license URI i module manifest as the bug causing PowershellGet to fail packageing the module in beta17 is resolved.
+
 ## [0.3.1] - 2022-12-08
 
 ### Added
