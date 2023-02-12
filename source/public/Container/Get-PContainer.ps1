@@ -60,18 +60,22 @@
         $Id | ForEach-Object {
             if ($PSItem.PSObject.TypeNames -contains 'PortainerContainer')
             {
-                $ContainerID = $PSItem.Id
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$($PSItem.Id)/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PortainerContainer'); $_ }
             }
-            elseif ($PSItem.GetType().Name -eq 'string')
+            elseif ($PSItem.PSObject.TypeNames -contains 'PortainerStack')
             {
-                $ContainerID = $PSItem
+                $ResourceID = $PSItem.ResourceControl.ResourceID
+                Get-PContainer -Endpoint:$Endpoint -Session:$Session | Where-Object { $_.Portainer.ResourceControl.ResourceID -eq $ResourceID }
+            }
+            elseif ($PSItem -is [string])
+            {
+                InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$PSItem/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PortainerContainer'); $_ }
             }
             else
             {
                 Write-Error -Message 'Cannot determine input object type' -ErrorAction Stop
             }
 
-            InvokePortainerRestMethod -Method Get -RelativePath "/endpoints/$EndpointId/docker/containers/$ContainerID/json" -PortainerSession:$Session | ForEach-Object { $PSItem.PSobject.TypeNames.Insert(0, 'PortainerContainer'); $_ }
         }
     }
 }
