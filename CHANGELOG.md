@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.4.4] - 2023-02-12
+
 ### Added
 
 - New function; Get-PStack
