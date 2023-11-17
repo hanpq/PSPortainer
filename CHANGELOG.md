@@ -7,7 +7,8 @@
 ### Added
 
 - New function; Get-PStack
-- Get-PContainer; Accepts a PortainerStack as pipeline input for container enumeration  
+- Get-PContainer; Accepts a PortainerStack as pipeline input for container enumeration
+- New function; Get-PImage
 
 ## [0.4.2] - 2022-12-28
 
