@@ -9,6 +9,8 @@
 
 ## [Unreleased]
 
+## [0.4.5](https://github.com/hanpq/PSPortainer/compare/v0.4.4...v0.4.5) (2023-11-18)
+
 ## [0.4.4] - 2023-02-12
 
 ### Added
