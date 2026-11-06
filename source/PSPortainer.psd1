@@ -8,7 +8,7 @@
 
 @{
     RootModule           = 'PSPortainer.psm1'
-    ModuleVersion        = '0.0.1'
+    ModuleVersion        = '0.4.5'
     CompatiblePSEditions = @('Desktop', 'Core')
     PowerShellVersion    = '5.1'
     GUID                 = '343344de-6ce2-4aa4-847c-7737b0dd4f8c'
