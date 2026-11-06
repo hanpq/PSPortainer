@@ -1,5 +1,12 @@
 # Changelog for PSPortainer
 
+## [0.4.7-beta002](https://github.com/hanpq/PSPortainer/compare/v0.4.7-beta001...v0.4.7-beta002) (2026-11-06)
+
+
+### Bug Fixes
+
+* trigger beta release ([c7d0439](https://github.com/hanpq/PSPortainer/commit/c7d04399c554b03c9c83be9e913ae3529e5dfeeb))
+
 ## [0.4.7-beta001](https://github.com/hanpq/PSPortainer/compare/v0.4.6-beta001...v0.4.7-beta001) (2026-11-06)
 
 
