@@ -16,11 +16,19 @@ The default `Verify` task builds the module from `source/` and runs tests from `
 ./build.ps1 -Task Package
 ```
 
+Optional `source/en-US`, `source/include` and `source/format` directories are copied into the built module when present. Keep source directory names lowercase except for canonical PowerShell culture directories such as `en-US`.
+
 Import the generated module from `output/PSPortainer/<version>/` to try it locally. Make changes in `source/`, not generated output under `output/`.
 
-Local tests run all suites by default. Use `-Task Test -TestSuite Module` for unit/QA tests or `-Task Test -TestSuite Infrastructure` for build/release tests. CI runs module tests with coverage across all supported platforms, and infrastructure tests once on Linux PowerShell 7 without coverage. Release publishing runs the module suite.
+Local tests run the unit, QA and infrastructure suites by default. Use `-Task Test -TestSuite Module` for unit/QA tests, `-Task Test -TestSuite Infrastructure` for build/release tests, or `-Task Test -TestSuite Integration` for integration tests. The integration suite is opt-in and does not run as part of the default `All` suite. CI runs module tests with coverage across all supported platforms, and infrastructure tests once on Linux PowerShell 7 without coverage. Release publishing runs the module suite.
 
-Coverage instruments the built module that the tests execute, then uses ModuleBuilder's source mappings to report the original `source/Public` and `source/Private` files in `output/testResults/JaCoCo_coverage.xml`. The module test run fails if coverage is below the configured target (currently 1%).
+For a subset of tests, add Pester tags, for example `./build.ps1 -Task Test -TestSuite Module -Tag 'Unit','Write-Log'`. Tag-filtered runs skip code coverage.
+
+Coverage instruments the built module that the tests execute, then uses ModuleBuilder's source mappings to report the original `source/public` and `source/private` files in `output/testResults/JaCoCo_coverage.xml`. The build also prints the mapped source instruction coverage. The module test run fails if coverage is below the configured target (currently 1%).
+
+PowerShell Gallery release notes are limited to 10,000 characters during the build. Longer notes are truncated at a line boundary and include a link to the full changelog.
+
+Untagged builds use the `## [Unreleased]` changelog section for release notes. The heading must exist, but its content may be empty.
 
 The QA suite in `tests/QA/module.tests.ps1` reports each file-quality check separately. It discovers source files and reads unit-test files once per run, and parses each function file once in its context's `BeforeAll`. Keep these shared inputs read-only so individual checks remain independent.
 
@@ -33,6 +41,8 @@ Stable-promotion tests mock Git and the GitHub API. They use temporary release-m
 - To step into module functions, set breakpoints in the generated `output/PSPortainer/<version>/PSPortainer.psm1` after building. Rebuilds replace this file; edit only `source/`.
 
 Tasks require PowerShell 7 (`pwsh` on PATH). Debugging requires the VS Code PowerShell extension and uses its selected PowerShell session.
+
+**PowerShell Attach to Runspace** prompts for both process and runspace.
 
 ## Submit a change
 
@@ -86,4 +96,4 @@ Stable releases update getps.dev through `scripts/Update-Docs.ps1`. Generated co
 
 The build uses these pinned dependencies from `output/RequiredModules`; you do not need to install them separately.
 
-Pipeline kit: hanpq/PSLogs@ca723099f0daee74603a2168df589e95f07bed34
+Pipeline kit: hanpq/PSLogs@a27e92467281aea3a04a24c316976d1fe87239c0

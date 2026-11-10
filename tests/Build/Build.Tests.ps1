@@ -2,7 +2,7 @@ BeforeAll {
     $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
     $buildScript = Join-Path $projectRoot 'build.ps1'
     $ast = [System.Management.Automation.Language.Parser]::ParseFile($buildScript, [ref]$null, [ref]$null)
-    foreach ($functionName in @('Import-BuildModule', 'Build-ProjectModule', 'Invoke-ModuleTests', 'New-ModulePackage'))
+    foreach ($functionName in @('Import-BuildModule', 'Limit-ReleaseNotes', 'Build-ProjectModule', 'Invoke-ModuleTests', 'New-ModulePackage'))
     {
         $definition = $ast.Find({
                 param($node)
@@ -18,6 +18,46 @@ BeforeAll {
     $OutputDirectory = Join-Path $TestDrive 'output'
     $TestResultsDirectory = Join-Path $OutputDirectory 'testResults'
     $ModuleName = 'ExampleModule'
+}
+
+Describe 'PowerShell Gallery release notes' {
+    It 'accepts an empty Unreleased section' -ForEach @(
+        @{ Changelog = "## [Unreleased]`n`n## [1.2.3] - 2026-01-01`nPrevious release notes." }
+        @{ Changelog = "## [Unreleased]`r`n `r`n`t`r`n## [1.2.3] - 2026-01-01`r`nPrevious release notes." }
+    ) {
+        $match = [regex]::Match($Changelog, '(?ms)^## \[Unreleased\][^\r\n]*\r?\n(?<notes>.*?)(?=^## \[|\z)')
+
+        $match.Success | Should -BeTrue
+        $notes = Limit-ReleaseNotes -ReleaseNotes $match.Groups['notes'].Value.Trim()
+
+        $notes | Should -BeExactly ''
+    }
+
+    It 'preserves notes that fit the gallery limit' {
+        $notes = "A short release note.`n"
+
+        (Limit-ReleaseNotes -ReleaseNotes $notes) | Should -BeExactly $notes
+    }
+
+    It 'truncates oversized notes at a line boundary and links to the changelog' {
+        $lines = 1..200 | ForEach-Object { "Release item $_ " + ('x' * 80) }
+        $notes = $lines -join "`n"
+
+        $limitedNotes = Limit-ReleaseNotes -ReleaseNotes $notes
+        $notice = "`n`nRelease notes are truncated. See the full changelog: https://github.com/hanpq/PSPortainer/blob/main/CHANGELOG.md"
+        $body = $limitedNotes.Substring(0, $limitedNotes.Length - $notice.Length)
+
+        $limitedNotes.Length | Should -BeLessOrEqual 10000
+        $limitedNotes.EndsWith($notice) | Should -BeTrue
+        $notes.StartsWith($body) | Should -BeTrue
+    }
+
+    It 'rejects oversized notes when no whole-line truncation is possible' {
+        $notes = 'x' * 10001
+
+        { Limit-ReleaseNotes -ReleaseNotes $notes } |
+            Should -Throw '*cannot be shortened to fit the PowerShell Gallery limit*'
+    }
 }
 
 Describe 'Module metadata discovery' {
@@ -105,6 +145,8 @@ Describe 'Module packaging' {
         @{ Parts = @(); ExpectedCopyPaths = $null; ExpectedPrefix = $null; ExpectedSuffix = $null }
         @{ Parts = @('en-US', 'prefix.ps1'); ExpectedCopyPaths = @('en-US'); ExpectedPrefix = 'prefix.ps1'; ExpectedSuffix = $null }
         @{ Parts = @('en-US', 'include', 'prefix.ps1', 'suffix.ps1'); ExpectedCopyPaths = @('en-US', 'include'); ExpectedPrefix = 'prefix.ps1'; ExpectedSuffix = 'suffix.ps1' }
+        @{ Parts = @('format'); ExpectedCopyPaths = @('format'); ExpectedPrefix = $null; ExpectedSuffix = $null }
+        @{ Parts = @('en-US', 'include', 'format'); ExpectedCopyPaths = @('en-US', 'include', 'format'); ExpectedPrefix = $null; ExpectedSuffix = $null }
     ) {
         function Build-Module
         {
@@ -119,11 +161,11 @@ Describe 'Module packaging' {
         {
             $type = if ($part -like '*.ps1')
             {
-                'File'
+                'File' 
             }
             else
             {
-                'Directory'
+                'Directory' 
             }
             New-Item -ItemType $type -Path (Join-Path $sourceDirectory $part) -Force | Out-Null
         }
@@ -135,6 +177,34 @@ Describe 'Module packaging' {
 
         Should -Invoke Build-Module -Times 1 -Exactly -ParameterFilter {
             "$CopyPaths" -eq "$ExpectedCopyPaths" -and "$Prefix" -eq "$ExpectedPrefix" -and "$Suffix" -eq "$ExpectedSuffix"
+        }
+    }
+
+    It 'includes optional format assets in the built module and release archive' {
+        $fixture = Join-Path $TestDrive ([guid]::NewGuid().ToString())
+        $sourceDirectory = Join-Path $fixture 'source'
+        $formatDirectory = Join-Path $sourceDirectory 'format'
+        New-Item -ItemType Directory -Path $formatDirectory -Force | Out-Null
+        $SourceManifest = Join-Path $sourceDirectory 'ExampleModule.psd1'
+        Set-Content -LiteralPath $SourceManifest -Value "@{ RootModule = 'ExampleModule.psm1'; ModuleVersion = '1.2.3'; GUID = 'e3dd1e6e-fab6-481c-a405-d02d26ae9ca7'; FunctionsToExport = @(); PrivateData = @{ PSData = @{ ReleaseNotes = '' } } }"
+        $formatFile = 'ExampleModule.Format.ps1xml'
+        Set-Content -LiteralPath (Join-Path $formatDirectory $formatFile) -Value '<Configuration/>'
+        $OutputDirectory = Join-Path $fixture 'output'
+        $BuiltModuleDirectory = Join-Path $OutputDirectory $ModuleName
+        Mock Import-BuildModule { }
+
+        Build-ProjectModule -ModuleVersion '1.2.3' | Out-Null
+        Test-Path -LiteralPath (Join-Path $BuiltModuleDirectory "1.2.3\format\$formatFile") | Should -BeTrue
+
+        New-ModulePackage -ModuleVersion '1.2.3'
+        $archive = [System.IO.Compression.ZipFile]::OpenRead((Join-Path $OutputDirectory 'ExampleModule.1.2.3.zip'))
+        try
+        {
+            $archive.Entries.FullName | Should -Contain "format/$formatFile"
+        }
+        finally
+        {
+            $archive.Dispose()
         }
     }
 
@@ -317,6 +387,26 @@ Describe 'Build test runner' {
         }
     }
 
+    It 'reports JaCoCo instruction coverage for mapped source files' {
+        Invoke-ModuleTests -ModuleVersion '1.2.3'
+
+        Should -Invoke Write-Host -Times 1 -Exactly -ParameterFilter {
+            $Object -like 'Source coverage from JaCoCo (public/private only):*'
+        }
+    }
+
+    It 'filters tagged test runs and disables coverage' {
+        Invoke-ModuleTests -ModuleVersion '1.2.3' -Tag @('Unit', 'Write-Log')
+
+        Should -Invoke Invoke-Pester -Times 1 -Exactly -ParameterFilter {
+            $tags = @($Configuration.Filter.Tag.Value)
+            $tags.Count -eq 2 -and
+            $tags[0] -eq 'Unit' -and
+            $tags[1] -eq 'Write-Log' -and
+            -not $Configuration.CodeCoverage.Enabled.Value
+        }
+    }
+
     It 'does not start Pester when the analyzer cannot be imported' {
         Mock Import-BuildModule {
             throw 'Analyzer assembly conflict'
@@ -331,7 +421,8 @@ Describe 'Build test runner' {
     It 'selects <Suite> tests and coverage' -ForEach @(
         @{ Suite = 'Module'; Directories = @('tests\Unit', 'tests\QA'); Coverage = $true }
         @{ Suite = 'Infrastructure'; Directories = @('tests\Build'); Coverage = $false }
-        @{ Suite = 'All'; Directories = @('tests'); Coverage = $true }
+        @{ Suite = 'Integration'; Directories = @('tests\Integration'); Coverage = $false }
+        @{ Suite = 'All'; Directories = @('tests\Unit', 'tests\QA', 'tests\Build'); Coverage = $true }
     ) {
         Invoke-ModuleTests -ModuleVersion '1.2.3' -TestSuite $Suite
 
